@@ -20,7 +20,7 @@ export function Teachers() {
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            eyebrow="Команда"
+            eyebrow="Ұжым"
             heading={teachers.heading}
             subheading={teachers.subheading}
           />
@@ -28,7 +28,7 @@ export function Teachers() {
             <button
               type="button"
               onClick={() => scrollByAmount(-320)}
-              aria-label="Прокрутить список воспитателей влево"
+              aria-label="Тәрбиешілер тізімін солға айналдыру"
               className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
             >
               ←
@@ -36,7 +36,7 @@ export function Teachers() {
             <button
               type="button"
               onClick={() => scrollByAmount(320)}
-              aria-label="Прокрутить список воспитателей вправо"
+              aria-label="Тәрбиешілер тізімін оңға айналдыру"
               className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
             >
               →

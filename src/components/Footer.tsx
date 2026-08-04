@@ -24,7 +24,7 @@ export function Footer() {
         </div>
 
         <nav
-          aria-label="Навигация в футере"
+          aria-label="Футердегі навигация"
           className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-cream/75"
         >
           {nav.map((link) => (

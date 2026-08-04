@@ -24,16 +24,16 @@ function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {};
 
   if (values.name.trim().length < 2) {
-    errors.name = "Введите имя (минимум 2 символа)";
+    errors.name = "Атыңызды енгізіңіз (кемінде 2 таңба)";
   }
 
   const digits = values.phone.replace(/\D/g, "");
   if (digits.length < 10 || digits.length > 15) {
-    errors.phone = "Введите корректный номер телефона";
+    errors.phone = "Телефон нөмірін дұрыс енгізіңіз";
   }
 
   if (!values.age) {
-    errors.age = "Укажите возраст ребёнка";
+    errors.age = "Баланың жасын көрсетіңіз";
   }
 
   return errors;
@@ -61,7 +61,7 @@ export function BookingForm() {
     if (Object.keys(nextErrors).length > 0) return;
 
     setStatus("submitting");
-    // Бэкенда пока нет: имитируем отправку заявки локально.
+    // Бэкенд әлі жоқ: өтінімнің жіберілуін жергілікті түрде имитациялаймыз.
     window.setTimeout(() => {
       setStatus("success");
     }, 900);
@@ -89,7 +89,7 @@ export function BookingForm() {
         <div className="flex flex-col gap-6">
           <Reveal>
             <span className="-rotate-2 inline-block w-fit rounded-full border-2 border-cream/40 bg-cream/10 px-4 py-1.5 font-hand text-xl font-bold text-cream">
-              Запись открыта ✨
+              Жазылу ашық ✨
             </span>
           </Reveal>
           <Reveal delay={0.05}>
@@ -104,7 +104,7 @@ export function BookingForm() {
           </Reveal>
           <Reveal delay={0.15}>
             <p className="max-w-md text-sm text-cream/60">
-              Останется только прийти познакомиться.
+              Тек келіп танысу ғана қалды.
             </p>
           </Reveal>
         </div>
@@ -137,7 +137,7 @@ export function BookingForm() {
                     onClick={resetForm}
                     className="mt-2"
                   >
-                    Отправить ещё одну заявку
+                    Тағы бір өтінім жіберу
                   </Button>
                 </motion.div>
               ) : (
@@ -156,7 +156,7 @@ export function BookingForm() {
                       htmlFor="parent-name"
                       className="text-sm font-bold text-ink"
                     >
-                      Имя родителя
+                      Ата-ананың аты-жөні
                     </label>
                     <input
                       id="parent-name"
@@ -172,7 +172,7 @@ export function BookingForm() {
                         errors.name ? "parent-name-error" : undefined
                       }
                       className={inputClasses}
-                      placeholder="Как к вам обращаться"
+                      placeholder="Сізге қалай қаралуымыз керек"
                     />
                     {errors.name && (
                       <p id="parent-name-error" className="text-sm font-bold text-coral">
@@ -186,7 +186,7 @@ export function BookingForm() {
                       htmlFor="parent-phone"
                       className="text-sm font-bold text-ink"
                     >
-                      Телефон
+                      Телефон нөмірі
                     </label>
                     <input
                       id="parent-phone"
@@ -216,7 +216,7 @@ export function BookingForm() {
                       htmlFor="child-age"
                       className="text-sm font-bold text-ink"
                     >
-                      Возраст ребёнка
+                      Баланың жасы
                     </label>
                     <select
                       id="child-age"
@@ -231,7 +231,7 @@ export function BookingForm() {
                       }
                       className={inputClasses}
                     >
-                      <option value="">Выберите возраст</option>
+                      <option value="">Жасты таңдаңыз</option>
                       {booking.ageOptions.map((option) => (
                         <option key={option} value={option}>
                           {option}
@@ -251,7 +251,7 @@ export function BookingForm() {
                     disabled={status === "submitting"}
                     className="mt-2 w-full justify-center disabled:opacity-60"
                   >
-                    {status === "submitting" ? "Отправляем…" : "Записаться"}
+                    {status === "submitting" ? "Жіберілуде…" : "Өтінім жіберу"}
                   </Button>
 
                   <ButtonLink

@@ -21,7 +21,7 @@ export function DayInLife() {
     <section id="day" className="scroll-mt-20 bg-paper py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Один день"
+          eyebrow="Бір күн"
           heading={dayInLife.heading}
           subheading={dayInLife.subheading}
           align="center"

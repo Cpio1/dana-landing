@@ -14,7 +14,7 @@ export function FAQ() {
     <section id="faq" className="scroll-mt-20 bg-paper py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Вопросы"
+          eyebrow="Сұрақтар"
           heading={faq.heading}
           subheading={faq.subheading}
         />

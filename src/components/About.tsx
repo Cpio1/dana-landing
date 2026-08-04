@@ -64,7 +64,7 @@ export function About() {
           <Reveal delay={0.35}>
             <div className="mt-2 flex flex-wrap items-center gap-4">
               <ButtonLink href="#booking" variant="primary">
-                Записаться на экскурсию
+                Экскурсияға жазылу
               </ButtonLink>
               <a
                 href={`tel:${contacts.phone.replace(/[^\d+]/g, "")}`}

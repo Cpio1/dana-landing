@@ -38,7 +38,7 @@ export function Advantages() {
     <section className="bg-paper py-20 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Коротко"
+          eyebrow="Қысқаша"
           heading={advantages.heading}
           subheading={advantages.subheading}
         />

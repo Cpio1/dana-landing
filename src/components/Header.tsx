@@ -24,7 +24,7 @@ export function Header() {
 
         <nav
           className="hidden items-center gap-1 lg:flex"
-          aria-label="Основная навигация"
+          aria-label="Негізгі навигация"
         >
           {nav.map((link) => (
             <a
@@ -39,7 +39,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <ButtonLink href="#booking" variant="primary" className="text-sm">
-            Записаться
+            Жазылу
           </ButtonLink>
         </div>
 
@@ -48,7 +48,7 @@ export function Header() {
           className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          aria-label={open ? "Закрыть меню" : "Открыть меню"}
+          aria-label={open ? "Мәзірді жабу" : "Мәзірді ашу"}
           onClick={() => setOpen((value) => !value)}
         >
           <span className="relative block h-4 w-5" aria-hidden="true">
@@ -75,7 +75,7 @@ export function Header() {
         {open && (
           <motion.nav
             id="mobile-nav"
-            aria-label="Мобильная навигация"
+            aria-label="Мобильді навигация"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -99,7 +99,7 @@ export function Header() {
                 className="mt-2 w-full justify-center"
                 onClick={() => setOpen(false)}
               >
-                Записаться на экскурсию
+                Экскурсияға жазылу
               </ButtonLink>
             </Container>
           </motion.nav>

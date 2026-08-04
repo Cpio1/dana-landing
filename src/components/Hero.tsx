@@ -85,7 +85,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             role="list"
-            aria-label="Ключевые показатели сада"
+            aria-label="Балабақшаның негізгі көрсеткіштері"
             className="mt-4 flex flex-wrap gap-3"
           >
             {hero.stats.map((stat, index) => {

@@ -33,7 +33,7 @@ export function Gallery() {
             <button
               type="button"
               onClick={() => scrollByAmount(-360)}
-              aria-label="Прокрутить галерею влево"
+              aria-label="Галереяны солға айналдыру"
               className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
             >
               ←
@@ -41,7 +41,7 @@ export function Gallery() {
             <button
               type="button"
               onClick={() => scrollByAmount(360)}
-              aria-label="Прокрутить галерею вправо"
+              aria-label="Галереяны оңға айналдыру"
               className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
             >
               →

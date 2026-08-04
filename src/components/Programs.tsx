@@ -43,7 +43,7 @@ export function Programs() {
         <Reveal>
           <div className="flex max-w-2xl flex-col gap-2">
             <span className="-rotate-2 inline-block w-fit font-hand text-2xl font-bold text-coral">
-              Программы
+              Бағдарламалар
             </span>
             <p className="text-base leading-relaxed text-ink-soft sm:text-lg">
               {programs.subheading}

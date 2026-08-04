@@ -32,7 +32,7 @@ export function Testimonials() {
     <section id="testimonials" className="scroll-mt-20 bg-cream py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Отзывы"
+          eyebrow="Пікірлер"
           heading={testimonials.heading}
           subheading={testimonials.subheading}
           align="center"
@@ -87,7 +87,7 @@ export function Testimonials() {
               <button
                 type="button"
                 onClick={prev}
-                aria-label="Предыдущий отзыв"
+                aria-label="Алдыңғы пікір"
                 className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
               >
                 ←
@@ -95,7 +95,7 @@ export function Testimonials() {
               <div
                 className="flex gap-2"
                 role="tablist"
-                aria-label="Выбор отзыва"
+                aria-label="Пікірді таңдау"
               >
                 {testimonials.items.map((item, i) => (
                   <button
@@ -103,7 +103,7 @@ export function Testimonials() {
                     type="button"
                     role="tab"
                     aria-selected={i === index}
-                    aria-label={`Отзыв ${i + 1} из ${total}`}
+                    aria-label={`${total} пікірдің ${i + 1}-і`}
                     onClick={() => setIndex(i)}
                     className={`h-3 w-3 rounded-full border-2 border-ink transition-colors duration-200 ${
                       i === index ? "bg-orange" : "bg-paper"
@@ -114,7 +114,7 @@ export function Testimonials() {
               <button
                 type="button"
                 onClick={next}
-                aria-label="Следующий отзыв"
+                aria-label="Келесі пікір"
                 className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
               >
                 →

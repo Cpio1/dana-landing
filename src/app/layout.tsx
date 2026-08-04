@@ -4,26 +4,26 @@ import "./globals.css";
 
 const comfortaa = Comfortaa({
   variable: "--font-comfortaa",
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
   weight: ["500", "600", "700"],
 });
 
 const nunito = Nunito({
   variable: "--font-nunito",
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
   weight: ["400", "600", "700", "800"],
 });
 
 const caveat = Caveat({
   variable: "--font-caveat",
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
   weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Дана — частный детский сад",
+  title: "Дана — жеке балабақша",
   description:
-    "Частный детский сад «Дана»: тепло, забота и развитие для детей 2–6 лет. Запишитесь на экскурсию и познакомьтесь с садом лично.",
+    "«Дана» жеке балабақшасы: 2–6 жастағы балаларға жылу, қамқорлық және даму. Экскурсияға жазылып, балабақшамен жеке танысыңыз.",
 };
 
 export default function RootLayout({
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="ru"
+      lang="kk"
       className={`${comfortaa.variable} ${nunito.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden bg-cream text-ink">

@@ -12,7 +12,7 @@ export function ContactsMap() {
         <div className="flex flex-col gap-6">
           <Reveal>
             <span className="-rotate-2 inline-block w-fit font-hand text-2xl font-bold text-coral">
-              Контакты
+              Байланыс
             </span>
           </Reveal>
           <Reveal delay={0.05}>
@@ -32,7 +32,7 @@ export function ContactsMap() {
                 </span>
                 <div>
                   <dt className="text-xs font-bold uppercase tracking-wide text-ink-soft">
-                    Адрес
+                    Мекенжай
                   </dt>
                   <dd className="text-base font-bold text-ink">{contacts.address}</dd>
                 </div>
@@ -43,7 +43,7 @@ export function ContactsMap() {
                 </span>
                 <div>
                   <dt className="text-xs font-bold uppercase tracking-wide text-ink-soft">
-                    Телефон
+                    Телефон нөмірі
                   </dt>
                   <dd>
                     <a
@@ -61,7 +61,7 @@ export function ContactsMap() {
                 </span>
                 <div>
                   <dt className="text-xs font-bold uppercase tracking-wide text-ink-soft">
-                    Часы работы
+                    Жұмыс уақыты
                   </dt>
                   <dd className="text-base font-bold text-ink">{contacts.workingHours}</dd>
                 </div>
