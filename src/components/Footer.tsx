@@ -1,56 +1,60 @@
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
-import { WaveDivider } from "@/components/ui/WaveDivider";
+import { Icon } from "@/components/ui/Icon";
+import { Decor } from "@/components/ui/Decor";
 
 export function Footer() {
-  const { brand, nav, footer, contacts } = siteContent;
+  const { brand, footer, contacts } = siteContent;
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink text-cream">
-      <WaveDivider color="var(--color-ink)" />
-
-      <Container className="flex flex-col gap-8 pb-10 sm:flex-row sm:items-start sm:justify-between">
+    <footer className="relative overflow-hidden border-t border-border bg-bg">
+      <Decor name="star" className="absolute right-10 top-6 h-3 w-3 text-yellow/50" />
+      <Container className="flex flex-col gap-8 py-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-3">
-          <span className="flex items-center gap-2 font-heading text-xl font-bold text-cream">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-cream/40 bg-yellow text-base">
-              🌻
-            </span>
+          <span className="flex items-center gap-2 font-heading text-lg font-semibold text-ink">
+            <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
             {brand.name}
           </span>
-          <p className="max-w-xs text-sm leading-relaxed text-cream/60">
+          <p className="max-w-xs text-sm leading-relaxed text-ink-soft">
             {footer.description}
           </p>
         </div>
 
-        <nav
-          aria-label="Футердегі навигация"
-          className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-cream/75"
-        >
-          {nav.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="transition-colors duration-200 hover:text-yellow"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex flex-col gap-1 text-sm text-cream/75">
+        <div className="flex flex-col gap-1 text-sm text-ink-soft">
           <a
             href={`tel:${contacts.phone.replace(/[^\d+]/g, "")}`}
-            className="font-bold transition-colors duration-200 hover:text-yellow"
+            className="font-medium text-ink transition-colors duration-200 hover:text-primary"
           >
             {contacts.phone}
           </a>
           <span>{contacts.address}</span>
         </div>
+
+        <div className="flex items-center gap-3">
+          <a
+            href={contacts.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition-colors duration-200 hover:text-primary"
+          >
+            <Icon name="whatsapp" className="h-4 w-4" />
+          </a>
+          <a
+            href={contacts.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition-colors duration-200 hover:text-primary"
+          >
+            <Icon name="instagram" className="h-4 w-4" />
+          </a>
+        </div>
       </Container>
 
-      <Container className="border-t-2 border-cream/15 py-6">
-        <p className="text-xs text-cream/45">
+      <Container className="border-t border-border py-5">
+        <p className="text-xs text-ink-soft/80">
           © {year} {footer.copyright}
         </p>
       </Container>

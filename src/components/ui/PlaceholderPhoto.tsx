@@ -1,54 +1,48 @@
-import type { PlaceholderImage, PlaceholderTone } from "@/types/content";
-import { BlobShape } from "@/components/ui/Doodles";
-
-const TONE_BG: Record<PlaceholderTone, string> = {
-  warm: "bg-coral",
-  sand: "bg-yellow",
-  sage: "bg-green",
-  dark: "bg-purple",
-};
-
-const TONE_TEXT: Record<PlaceholderTone, string> = {
-  warm: "text-coral",
-  sand: "text-yellow",
-  sage: "text-green",
-  dark: "text-purple",
-};
+import Image from "next/image";
+import type { ImageAsset } from "@/types/content";
+import { Icon } from "@/components/ui/Icon";
 
 interface PlaceholderPhotoProps {
-  image: PlaceholderImage;
+  image: ImageAsset;
   className?: string;
-  showCaption?: boolean;
   rounded?: string;
+  sizes?: string;
 }
 
+/**
+ * Shows the real photo once `image.src` is set. Until then, renders a calm
+ * neutral placeholder so the layout is easy to preview before photos are added.
+ */
 export function PlaceholderPhoto({
   image,
   className = "",
-  showCaption = true,
-  rounded = "rounded-[2rem]",
+  rounded = "rounded-2xl",
+  sizes = "(min-width: 1024px) 50vw, 100vw",
 }: PlaceholderPhotoProps) {
   return (
-    <div role="img" aria-label={image.alt} className={`relative ${className}`}>
-      <div
-        className={`absolute inset-0 overflow-hidden border-2 border-ink ${TONE_BG[image.tone]} ${rounded}`}
-      >
-        <BlobShape className="pointer-events-none absolute -bottom-8 -right-8 h-2/3 w-2/3 text-white/15" />
-        <BlobShape className="pointer-events-none absolute -top-10 -left-10 h-1/2 w-1/2 text-white/10" />
-      </div>
-      {showCaption && (
-        <span
-          aria-hidden="true"
-          className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-paper px-3 py-1 text-[11px] font-bold text-ink shadow-[2px_2px_0_0_var(--color-ink)]"
+    <div
+      className={`relative overflow-hidden border border-border bg-bg-alt ${rounded} ${className}`}
+    >
+      {image.src ? (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes={sizes}
+          className="object-cover"
+        />
+      ) : (
+        <div
+          role="img"
+          aria-label={image.alt}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-ink-soft/60"
         >
-          <span className={`h-1.5 w-1.5 rounded-full ${TONE_BG[image.tone]}`} />
-          {image.caption}
-        </span>
+          <Icon name="camera" className="h-8 w-8" />
+          {image.caption && (
+            <span className="text-xs font-medium">{image.caption}</span>
+          )}
+        </div>
       )}
     </div>
   );
-}
-
-export function toneAccentText(tone: PlaceholderTone) {
-  return TONE_TEXT[tone];
 }

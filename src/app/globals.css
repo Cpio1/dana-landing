@@ -1,32 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --color-cream: #fffaf0;
-  --color-paper: #ffffff;
-  --color-ink: #2b3358;
-  --color-ink-soft: #5b6389;
+  /* Base surfaces: white / milky / very light grey */
+  --color-bg: #ffffff;
+  --color-bg-soft: #faf8f4;
+  --color-bg-alt: #f4f3f0;
+
+  /* Text */
+  --color-ink: #22252b;
+  --color-ink-soft: #676b73;
+
+  /* Hairlines */
+  --color-border: #e7e4de;
+
+  /* Brand accents — used sparingly (buttons, icons, small highlights) */
   --color-yellow: #ffc93c;
   --color-coral: #ff6f5e;
-  --color-green: #35c28f;
+  --color-green: #2fae82;
   --color-purple: #9b7ef0;
   --color-orange: #ff9a44;
   --color-blue: #2fb4e5;
+  --color-primary: var(--color-coral);
+
+  /* Pastel section backgrounds — very light, alternated between sections */
+  --color-pastel-cream: #fffdf8;
+  --color-pastel-blue: #eff6fb;
+  --color-pastel-yellow: #fff9e9;
+  --color-pastel-mint: #effbf5;
+  --color-pastel-lilac: #f7f3fc;
 }
 
 @theme inline {
-  --color-cream: var(--color-cream);
-  --color-paper: var(--color-paper);
+  --color-bg: var(--color-bg);
+  --color-bg-soft: var(--color-bg-soft);
+  --color-bg-alt: var(--color-bg-alt);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
+  --color-border: var(--color-border);
+  --color-primary: var(--color-primary);
   --color-yellow: var(--color-yellow);
   --color-coral: var(--color-coral);
   --color-green: var(--color-green);
   --color-purple: var(--color-purple);
   --color-orange: var(--color-orange);
   --color-blue: var(--color-blue);
+  --color-pastel-cream: var(--color-pastel-cream);
+  --color-pastel-blue: var(--color-pastel-blue);
+  --color-pastel-yellow: var(--color-pastel-yellow);
+  --color-pastel-mint: var(--color-pastel-mint);
+  --color-pastel-lilac: var(--color-pastel-lilac);
   --font-heading: var(--font-comfortaa);
   --font-sans: var(--font-nunito);
-  --font-hand: var(--font-caveat);
 }
 
 body {
@@ -34,8 +58,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-orange);
-  color: var(--color-paper);
+  background: var(--color-coral);
+  color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -59,70 +83,4 @@ body {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-/* Organic "blob" shapes for photo frames and decorative panels */
-.blob-1 {
-  border-radius: 63% 37% 54% 46% / 43% 47% 53% 57%;
-}
-
-.blob-2 {
-  border-radius: 42% 58% 63% 37% / 51% 45% 55% 49%;
-}
-
-.blob-3 {
-  border-radius: 55% 45% 38% 62% / 60% 41% 59% 40%;
-}
-
-.blob-4 {
-  border-radius: 38% 62% 61% 39% / 45% 60% 40% 55%;
-}
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(4deg);
-  }
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-float {
-  animation: float-y 5s ease-in-out infinite;
-}
-
-.animate-wiggle {
-  animation: wiggle 3.5s ease-in-out infinite;
-}
-
-.animate-marquee {
-  animation: marquee 28s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-wiggle,
-  .animate-marquee {
-    animation: none;
-  }
 }

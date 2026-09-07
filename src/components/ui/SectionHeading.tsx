@@ -5,7 +5,6 @@ interface SectionHeadingProps {
   heading: string;
   subheading?: string;
   align?: "left" | "center";
-  tone?: "light" | "dark";
 }
 
 export function SectionHeading({
@@ -13,30 +12,23 @@ export function SectionHeading({
   heading,
   subheading,
   align = "left",
-  tone = "light",
 }: SectionHeadingProps) {
   const alignClass =
     align === "center" ? "items-center text-center mx-auto" : "items-start text-left";
-  const subheadingColor = tone === "dark" ? "text-cream/75" : "text-ink-soft";
-  const headingColor = tone === "dark" ? "text-cream" : "text-ink";
 
   return (
     <Reveal>
       <div className={`flex max-w-2xl flex-col gap-2 ${alignClass}`}>
         {eyebrow && (
-          <span
-            className="-rotate-2 font-hand text-2xl font-bold text-coral sm:text-3xl"
-          >
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
             {eyebrow}
           </span>
         )}
-        <h2
-          className={`font-heading text-3xl leading-tight sm:text-4xl lg:text-5xl ${headingColor}`}
-        >
+        <h2 className="font-heading text-2xl leading-tight text-ink sm:text-3xl">
           {heading}
         </h2>
         {subheading && (
-          <p className={`mt-2 max-w-xl text-base leading-relaxed sm:text-lg ${subheadingColor}`}>
+          <p className="mt-1 max-w-xl text-base leading-relaxed text-ink-soft">
             {subheading}
           </p>
         )}

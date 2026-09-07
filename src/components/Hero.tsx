@@ -1,139 +1,59 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { PlaceholderPhoto } from "@/components/ui/PlaceholderPhoto";
+import { Reveal } from "@/components/ui/Reveal";
+import { Decor } from "@/components/ui/Decor";
 import { WaveDivider } from "@/components/ui/WaveDivider";
-import { BeeDoodle, PencilDoodle, RainbowDoodle, StarDoodle } from "@/components/ui/Doodles";
-
-const CHIP_ACCENTS = [
-  { shadow: "var(--color-coral)", rotate: "-rotate-2" },
-  { shadow: "var(--color-blue)", rotate: "rotate-1" },
-  { shadow: "var(--color-green)", rotate: "-rotate-1" },
-  { shadow: "var(--color-purple)", rotate: "rotate-2" },
-];
 
 export function Hero() {
-  const shouldReduceMotion = useReducedMotion();
   const { hero } = siteContent;
 
   return (
-    <section className="relative overflow-hidden bg-cream pt-6">
-      <Container className="grid grid-cols-1 items-center gap-12 pb-24 pt-10 lg:grid-cols-2 lg:gap-10 lg:pb-32 lg:pt-16">
-        <div className="flex flex-col items-start gap-6">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="-rotate-2 rounded-full border-2 border-ink bg-yellow px-4 py-1.5 font-hand text-xl font-bold text-ink"
-          >
-            {hero.eyebrow} ✨
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="max-w-xl font-heading text-4xl leading-[1.15] text-ink sm:text-5xl lg:text-6xl"
-          >
-            {hero.title}{" "}
-            <span className="relative inline-block text-coral">
-              {hero.highlight}
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 200 16"
-                className="absolute -bottom-2 left-0 h-3 w-full text-coral"
-                fill="none"
-              >
-                <path
-                  d="M2 10c30-9 60 3 90-2s60-8 106-3"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-md text-lg text-ink-soft"
-          >
-            {hero.subtitle}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col gap-3 sm:flex-row"
-          >
-            <ButtonLink href="#booking" variant="primary">
-              {hero.primaryCta}
+    <section className="relative overflow-hidden bg-pastel-cream">
+      <Container className="grid grid-cols-1 items-center gap-10 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
+        <Reveal>
+          <div className="flex flex-col items-start gap-5">
+            <h1 className="font-heading text-3xl leading-tight text-ink sm:text-4xl lg:text-5xl">
+              {hero.title}
+            </h1>
+            <p className="max-w-md text-lg leading-relaxed text-ink-soft">
+              {hero.subtitle}
+            </p>
+            <ButtonLink href={hero.ctaHref} variant="primary">
+              {hero.ctaLabel}
             </ButtonLink>
-            <ButtonLink href="#day" variant="dark">
-              {hero.secondaryCta}
-            </ButtonLink>
-          </motion.div>
+          </div>
+        </Reveal>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            role="list"
-            aria-label="Балабақшаның негізгі көрсеткіштері"
-            className="mt-4 flex flex-wrap gap-3"
-          >
-            {hero.stats.map((stat, index) => {
-              const accent = CHIP_ACCENTS[index % CHIP_ACCENTS.length];
-              return (
-                <div
-                  key={stat.label}
-                  role="listitem"
-                  className={`${accent.rotate} rounded-2xl border-2 border-ink bg-paper px-4 py-2`}
-                  style={{ boxShadow: `3px 3px 0 0 ${accent.shadow}` }}
-                >
-                  <p className="font-heading text-lg text-ink">{stat.value}</p>
-                  <p className="text-[11px] font-bold uppercase tracking-wide text-ink-soft">
-                    {stat.label}
-                  </p>
-                </div>
-              );
-            })}
-          </motion.div>
-        </div>
-
-        <div className="relative mx-auto flex w-full max-w-md items-center justify-center">
-          <PlaceholderPhoto
-            image={hero.image}
-            rounded="blob-1"
-            className="aspect-[4/5] w-full"
-          />
-
-          {!shouldReduceMotion && (
-            <>
-              <div className="animate-float absolute -left-6 top-4 text-blue sm:-left-10">
-                <BeeDoodle className="h-12 w-12" />
-              </div>
-              <div className="absolute -right-2 top-0 text-green sm:right-2">
-                <RainbowDoodle className="h-14 w-20" />
-              </div>
-              <div className="animate-wiggle absolute -right-6 bottom-16 text-purple sm:-right-10">
-                <PencilDoodle className="h-14 w-14" />
-              </div>
-              <div className="animate-float absolute -left-4 bottom-8 text-yellow">
-                <StarDoodle className="h-8 w-8" />
-              </div>
-            </>
-          )}
-        </div>
+        <Reveal delay={0.1}>
+          <div className="relative mx-auto w-full max-w-md">
+            <div
+              aria-hidden="true"
+              className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-pastel-blue/70 blur-2xl sm:-inset-10"
+            />
+            <PlaceholderPhoto
+              image={hero.image}
+              rounded="rounded-3xl"
+              className="aspect-[4/3] w-full lg:aspect-[4/5]"
+            />
+            <Decor
+              name="cloud"
+              className="absolute -left-5 -top-5 h-9 w-9 text-blue/40 sm:-left-8 sm:-top-6 sm:h-11 sm:w-11"
+            />
+            <Decor
+              name="star"
+              className="absolute -right-3 top-1/3 h-4 w-4 text-yellow/70"
+            />
+            <Decor
+              name="star"
+              className="absolute -bottom-4 left-1/4 h-3 w-3 text-primary/50"
+            />
+          </div>
+        </Reveal>
       </Container>
 
-      <WaveDivider color="var(--color-paper)" />
+      <WaveDivider color="var(--color-bg)" />
     </section>
   );
 }

@@ -1,9 +1,34 @@
-export type PlaceholderTone = "warm" | "sand" | "sage" | "dark";
+export type IconName =
+  | "clock"
+  | "users"
+  | "language"
+  | "grid"
+  | "camera"
+  | "utensils"
+  | "music"
+  | "dance"
+  | "puzzle"
+  | "cap"
+  | "palette"
+  | "truck"
+  | "file"
+  | "external-link"
+  | "phone"
+  | "mail"
+  | "map-pin"
+  | "whatsapp"
+  | "instagram"
+  | "close"
+  | "chevron-left"
+  | "chevron-right"
+  | "arrow-right"
+  | "check";
 
-export interface PlaceholderImage {
+export interface ImageAsset {
+  /** Path under /public, e.g. "/images/hero.jpg". Leave empty for a neutral placeholder. */
+  src?: string;
   alt: string;
-  caption: string;
-  tone: PlaceholderTone;
+  caption?: string;
 }
 
 export interface NavLink {
@@ -11,125 +36,94 @@ export interface NavLink {
   href: string;
 }
 
-export interface Advantage {
-  icon: "heart" | "shield" | "book" | "sun";
+export interface InfoItem {
+  icon: IconName;
+  label: string;
+  value: string;
+}
+
+export interface ActivityItem {
+  icon: IconName;
   title: string;
-  description: string;
 }
 
-export interface Program {
-  tag: string;
+export interface DocumentItem {
   title: string;
-  description: string;
+  href: string;
 }
 
-export interface DayItem {
-  time: string;
-  title: string;
-  description: string;
-  image: PlaceholderImage;
-}
-
-export interface Teacher {
-  name: string;
-  role: string;
-  bio: string;
-  image: PlaceholderImage;
-}
-
-export interface Testimonial {
-  quote: string;
-  name: string;
-  meta: string;
-}
-
-export interface FaqItem {
-  question: string;
-  answer: string;
+export interface OfficialInfoItem {
+  label: string;
+  value: string;
 }
 
 export interface SiteContent {
   brand: {
     name: string;
-    tagline: string;
   };
   nav: NavLink[];
-  hero: {
-    eyebrow: string;
-    title: string;
-    highlight: string;
-    subtitle: string;
-    primaryCta: string;
-    secondaryCta: string;
-    image: PlaceholderImage;
-    stats: { value: string; label: string }[];
+  header: {
+    ctaLabel: string;
+    ctaHref: string;
   };
-  advantages: {
-    heading: string;
-    subheading: string;
-    items: Advantage[];
+  hero: {
+    title: string;
+    subtitle: string;
+    ctaLabel: string;
+    ctaHref: string;
+    image: ImageAsset;
   };
   about: {
     heading: string;
-    subheading: string;
-    paragraphs: string[];
-    highlights: string[];
-    image: PlaceholderImage;
+    goalTitle: string;
+    goalText: string;
+    principleTitle: string;
+    principleText: string;
   };
-  programs: {
+  keyInfo: {
     heading: string;
-    subheading: string;
-    items: Program[];
+    items: InfoItem[];
   };
-  dayInLife: {
+  nutrition: {
     heading: string;
-    subheading: string;
-    items: DayItem[];
+    title: string;
+    meals: string[];
+    image: ImageAsset;
+  };
+  transport: {
+    enabled: boolean;
+    heading: string;
+    text: string;
+  };
+  activities: {
+    heading: string;
+    items: ActivityItem[];
   };
   gallery: {
     heading: string;
     subheading: string;
-    images: PlaceholderImage[];
+    images: ImageAsset[];
   };
-  teachers: {
+  officialInfo: {
     heading: string;
-    subheading: string;
-    items: Teacher[];
+    items: OfficialInfoItem[];
   };
-  testimonials: {
+  documents: {
     heading: string;
-    subheading: string;
-    items: Testimonial[];
-  };
-  faq: {
-    heading: string;
-    subheading: string;
-    items: FaqItem[];
-  };
-  booking: {
-    heading: string;
-    subheading: string;
-    note: string;
-    ageOptions: string[];
-    successTitle: string;
-    successText: string;
+    items: DocumentItem[];
   };
   contacts: {
     heading: string;
-    subheading: string;
-    address: string;
     phone: string;
+    email: string;
+    address: string;
     workingHours: string;
     whatsappUrl: string;
-    telegramUrl: string;
-    mapImage: PlaceholderImage;
+    instagramUrl: string;
+    mapImage: ImageAsset;
   };
   footer: {
     description: string;
     copyright: string;
-  };
-  whatsapp: {
-    url: string;
-    label: string;
   };
 }

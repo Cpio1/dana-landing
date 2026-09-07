@@ -1,78 +1,121 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlaceholderPhoto } from "@/components/ui/PlaceholderPhoto";
-import { useDragScroll } from "@/components/ui/useDragScroll";
-
-const SIZE_PATTERN = [
-  "aspect-[3/4] w-[240px] sm:w-[280px]",
-  "aspect-[4/3] w-[300px] sm:w-[360px]",
-  "aspect-[1/1] w-[240px] sm:w-[280px]",
-];
-
-const BLOBS = ["blob-1", "blob-2", "blob-3", "blob-4"];
+import { Icon } from "@/components/ui/Icon";
 
 export function Gallery() {
   const { gallery } = siteContent;
-  const { ref, onPointerDown, onPointerMove, onPointerUp, scrollByAmount } =
-    useDragScroll<HTMLUListElement>();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const total = gallery.images.length;
+
+  const close = useCallback(() => setActiveIndex(null), []);
+  const next = useCallback(
+    () => setActiveIndex((i) => (i === null ? null : (i + 1) % total)),
+    [total],
+  );
+  const prev = useCallback(
+    () => setActiveIndex((i) => (i === null ? null : (i - 1 + total) % total)),
+    [total],
+  );
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+      if (event.key === "ArrowRight") next();
+      if (event.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeIndex, close, next, prev]);
+
+  const active = activeIndex !== null ? gallery.images[activeIndex] : null;
 
   return (
-    <section className="bg-cream py-20 sm:py-24">
+    <section id="gallery" className="scroll-mt-20 bg-bg py-16 sm:py-20">
       <Container>
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <SectionHeading
-            eyebrow="Галерея"
-            heading={gallery.heading}
-            subheading={gallery.subheading}
-          />
-          <div className="hidden gap-3 sm:flex">
-            <button
-              type="button"
-              onClick={() => scrollByAmount(-360)}
-              aria-label="Галереяны солға айналдыру"
-              className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByAmount(360)}
-              aria-label="Галереяны оңға айналдыру"
-              className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-ink bg-paper transition-colors duration-200 hover:bg-yellow"
-            >
-              →
-            </button>
-          </div>
+        <SectionHeading heading={gallery.heading} subheading={gallery.subheading} />
+
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {gallery.images.map((image, index) => (
+            <Reveal key={image.alt + index} delay={(index % 3) * 0.05}>
+              <button
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Үлкейту: ${image.alt}`}
+                className="block w-full text-left"
+              >
+                <PlaceholderPhoto
+                  image={image}
+                  rounded="rounded-2xl"
+                  className="aspect-[4/3] w-full"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+              </button>
+            </Reveal>
+          ))}
         </div>
       </Container>
 
-      <Reveal delay={0.1}>
-        <ul
-          ref={ref}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerLeave={onPointerUp}
-          className="no-scrollbar mt-10 flex list-none cursor-grab gap-6 overflow-x-auto px-5 pb-4 snap-x snap-mandatory active:cursor-grabbing sm:px-8 lg:px-10"
+      {active && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={active.alt}
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/80 p-4 sm:p-8"
+          onClick={close}
         >
-          {gallery.images.map((image, index) => (
-            <li
-              key={image.caption + index}
-              className={`shrink-0 snap-start ${SIZE_PATTERN[index % SIZE_PATTERN.length]}`}
-            >
-              <PlaceholderPhoto
-                image={image}
-                rounded={BLOBS[index % BLOBS.length]}
-                className="h-full w-full transition-transform duration-500 ease-out hover:scale-[1.03] hover:rotate-1"
-              />
-            </li>
-          ))}
-        </ul>
-      </Reveal>
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Жабу"
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-bg/90 text-ink sm:right-8 sm:top-8"
+          >
+            <Icon name="close" className="h-5 w-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            aria-label="Алдыңғы фотосурет"
+            className="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg/90 text-ink sm:left-6 sm:flex"
+          >
+            <Icon name="chevron-left" className="h-5 w-5" />
+          </button>
+
+          <div
+            className="relative aspect-[4/3] w-full max-w-3xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <PlaceholderPhoto
+              image={active}
+              rounded="rounded-2xl"
+              className="h-full w-full"
+              sizes="90vw"
+            />
+          </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            aria-label="Келесі фотосурет"
+            className="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg/90 text-ink sm:right-6 sm:flex"
+          >
+            <Icon name="chevron-right" className="h-5 w-5" />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

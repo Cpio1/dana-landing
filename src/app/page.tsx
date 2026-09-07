@@ -1,15 +1,14 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Advantages } from "@/components/Advantages";
 import { About } from "@/components/About";
-import { Programs } from "@/components/Programs";
-import { DayInLife } from "@/components/DayInLife";
+import { KeyInfo } from "@/components/KeyInfo";
+import { Nutrition } from "@/components/Nutrition";
+import { Transport } from "@/components/Transport";
+import { Activities } from "@/components/Activities";
 import { Gallery } from "@/components/Gallery";
-import { Teachers } from "@/components/Teachers";
-import { Testimonials } from "@/components/Testimonials";
-import { FAQ } from "@/components/FAQ";
-import { BookingForm } from "@/components/BookingForm";
-import { ContactsMap } from "@/components/ContactsMap";
+import { OfficialInfo } from "@/components/OfficialInfo";
+import { Documents } from "@/components/Documents";
+import { Contacts } from "@/components/Contacts";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
@@ -19,16 +18,15 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
-        <Advantages />
         <About />
-        <Programs />
-        <DayInLife />
+        <KeyInfo />
+        <Nutrition />
+        <Transport />
+        <Activities />
         <Gallery />
-        <Teachers />
-        <Testimonials />
-        <FAQ />
-        <BookingForm />
-        <ContactsMap />
+        <OfficialInfo />
+        <Documents />
+        <Contacts />
       </main>
       <Footer />
       <WhatsAppButton />

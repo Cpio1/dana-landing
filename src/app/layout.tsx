@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Comfortaa, Nunito, Caveat } from "next/font/google";
+import { Comfortaa, Nunito } from "next/font/google";
 import "./globals.css";
 
 const comfortaa = Comfortaa({
@@ -14,16 +14,10 @@ const nunito = Nunito({
   weight: ["400", "600", "700", "800"],
 });
 
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  weight: ["600", "700"],
-});
-
 export const metadata: Metadata = {
-  title: "Дана — жеке балабақша",
+  title: "Дана — балабақша",
   description:
-    "«Дана» жеке балабақшасы: 2–6 жастағы балаларға жылу, қамқорлық және даму. Экскурсияға жазылып, балабақшамен жеке танысыңыз.",
+    "«Дана» балабақшасы: балалар туралы толық ақпарат, тамақтану, қосымша сабақтар, құжаттар және байланыс мәліметтері.",
 };
 
 export default function RootLayout({
@@ -34,9 +28,9 @@ export default function RootLayout({
   return (
     <html
       lang="kk"
-      className={`${comfortaa.variable} ${nunito.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
+      className={`${comfortaa.variable} ${nunito.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-x-hidden bg-cream text-ink">
+      <body className="min-h-full flex flex-col overflow-x-hidden bg-bg-soft text-ink">
         {children}
       </body>
     </html>
