@@ -21,8 +21,12 @@ export type IconName =
   | "close"
   | "chevron-left"
   | "chevron-right"
+  | "chevron-down"
   | "arrow-right"
-  | "check";
+  | "check"
+  | "folder"
+  | "pdf"
+  | "doc";
 
 export interface ImageAsset {
   /** Path under /public, e.g. "/images/hero.jpg". Leave empty for a neutral placeholder. */
@@ -45,11 +49,6 @@ export interface InfoItem {
 export interface ActivityItem {
   icon: IconName;
   title: string;
-}
-
-export interface DocumentItem {
-  title: string;
-  href: string;
 }
 
 export interface OfficialInfoItem {
@@ -88,7 +87,7 @@ export interface SiteContent {
     heading: string;
     title: string;
     meals: string[];
-    image: ImageAsset;
+    images: ImageAsset[];
   };
   transport: {
     enabled: boolean;
@@ -110,7 +109,9 @@ export interface SiteContent {
   };
   documents: {
     heading: string;
-    items: DocumentItem[];
+    /** Opens in a new tab — the folder link is external (Google Drive), not an on-site document. */
+    attestationTitle: string;
+    attestationHref: string;
   };
   contacts: {
     heading: string;

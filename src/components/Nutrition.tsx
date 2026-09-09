@@ -1,3 +1,6 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,6 +10,31 @@ import { Decor } from "@/components/ui/Decor";
 
 export function Nutrition() {
   const { nutrition } = siteContent;
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const total = nutrition.images.length;
+
+  const close = useCallback(() => setActiveIndex(null), []);
+  const next = useCallback(
+    () => setActiveIndex((i) => (i === null ? null : (i + 1) % total)),
+    [total],
+  );
+  const prev = useCallback(
+    () => setActiveIndex((i) => (i === null ? null : (i - 1 + total) % total)),
+    [total],
+  );
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+      if (event.key === "ArrowRight") next();
+      if (event.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeIndex, close, next, prev]);
+
+  const active = activeIndex !== null ? nutrition.images[activeIndex] : null;
 
   return (
     <section id="nutrition" className="scroll-mt-20 relative overflow-hidden bg-pastel-yellow py-16 sm:py-20">
@@ -38,11 +66,24 @@ export function Nutrition() {
 
         <Reveal delay={0.1}>
           <div className="relative">
-            <PlaceholderPhoto
-              image={nutrition.image}
-              rounded="rounded-3xl"
-              className="aspect-[4/3] w-full"
-            />
+            <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-2">
+              {nutrition.images.map((image, index) => (
+                <button
+                  key={image.src ?? image.alt + index}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`Үлкейту: ${image.alt}`}
+                  className="block w-full text-left"
+                >
+                  <PlaceholderPhoto
+                    image={image}
+                    rounded="rounded-2xl"
+                    className="aspect-square w-full transition-transform duration-300 ease-out hover:scale-[1.03]"
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                  />
+                </button>
+              ))}
+            </div>
             <Decor
               name="sun"
               className="absolute -right-4 -top-4 h-9 w-9 text-orange/45"
@@ -50,6 +91,61 @@ export function Nutrition() {
           </div>
         </Reveal>
       </Container>
+
+      {active && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={active.alt}
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/80 p-4 sm:p-8"
+          onClick={close}
+        >
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Жабу"
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-bg/90 text-ink sm:right-8 sm:top-8"
+          >
+            <Icon name="close" className="h-5 w-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            aria-label="Алдыңғы фотосурет"
+            className="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg/90 text-ink sm:left-6 sm:flex"
+          >
+            <Icon name="chevron-left" className="h-5 w-5" />
+          </button>
+
+          <div
+            className="relative aspect-[4/3] w-full max-w-3xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <PlaceholderPhoto
+              image={active}
+              rounded="rounded-2xl"
+              className="h-full w-full"
+              sizes="90vw"
+            />
+          </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            aria-label="Келесі фотосурет"
+            className="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg/90 text-ink sm:right-6 sm:flex"
+          >
+            <Icon name="chevron-right" className="h-5 w-5" />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

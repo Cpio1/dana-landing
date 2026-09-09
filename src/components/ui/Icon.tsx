@@ -123,8 +123,26 @@ const PATHS: Record<IconName, React.ReactNode> = {
   close: <path d="M5 5l14 14M19 5L5 19" />,
   "chevron-left": <path d="M15 5l-7 7 7 7" />,
   "chevron-right": <path d="M9 5l7 7-7 7" />,
+  "chevron-down": <path d="M5 9l7 7 7-7" />,
   "arrow-right": <path d="M4 12h16M13 6l6 6-6 6" />,
   check: <path d="M4.5 12.5l5 5 10-11" />,
+  folder: (
+    <path d="M3.5 6.5a1.5 1.5 0 0 1 1.5-1.5h4.4l1.8 2h7.3a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5v-11z" />
+  ),
+  pdf: (
+    <>
+      <path d="M6.5 2.5h8l4 4V21a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" />
+      <path d="M14.5 2.5v4h4" />
+      <path d="M8.5 13h7M8.5 16.5h7M8.5 9.5h3" />
+    </>
+  ),
+  doc: (
+    <>
+      <path d="M6.5 2.5h8l4 4V21a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" />
+      <path d="M14.5 2.5v4h4" />
+      <rect x="8" y="12.3" width="7" height="2.2" rx="1.1" fill="currentColor" stroke="none" />
+    </>
+  ),
 };
 
 export function Icon({

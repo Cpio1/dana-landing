@@ -7,6 +7,14 @@ interface PlaceholderPhotoProps {
   className?: string;
   rounded?: string;
   sizes?: string;
+  /**
+   * "cover" (default) fills the container and crops to match its shape.
+   * "contain" shows the whole photo at its own aspect ratio — pass
+   * `width`/`height` (the photo's real pixel size) with this mode.
+   */
+  fit?: "cover" | "contain";
+  width?: number;
+  height?: number;
 }
 
 /**
@@ -18,19 +26,35 @@ export function PlaceholderPhoto({
   className = "",
   rounded = "rounded-2xl",
   sizes = "(min-width: 1024px) 50vw, 100vw",
+  fit = "cover",
+  width,
+  height,
 }: PlaceholderPhotoProps) {
+  const isContain = fit === "contain" && width && height;
+
   return (
     <div
       className={`relative overflow-hidden border border-border bg-bg-alt ${rounded} ${className}`}
     >
       {image.src ? (
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          sizes={sizes}
-          className="object-cover"
-        />
+        isContain ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={width}
+            height={height}
+            sizes={sizes}
+            className="h-auto w-full object-contain"
+          />
+        ) : (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes={sizes}
+            className="object-cover"
+          />
+        )
       ) : (
         <div
           role="img"

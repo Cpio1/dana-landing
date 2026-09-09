@@ -53,7 +53,7 @@ export function Gallery() {
                 <PlaceholderPhoto
                   image={image}
                   rounded="rounded-2xl"
-                  className="aspect-[4/3] w-full"
+                  className="aspect-[4/3] w-full transition-transform duration-300 ease-out hover:scale-[1.03]"
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
               </button>

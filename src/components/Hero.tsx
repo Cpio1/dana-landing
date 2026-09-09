@@ -35,7 +35,10 @@ export function Hero() {
             <PlaceholderPhoto
               image={hero.image}
               rounded="rounded-3xl"
-              className="aspect-[4/3] w-full lg:aspect-[4/5]"
+              className="w-full"
+              fit="contain"
+              width={1179}
+              height={717}
             />
             <Decor
               name="cloud"
