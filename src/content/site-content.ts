@@ -44,10 +44,10 @@ export const siteContent: SiteContent = {
   keyInfo: {
     heading: "Негізгі ақпарат",
     items: [
-      { icon: "users", label: "Балалардың жасы", value: "2 – 6 жас" },
+      { icon: "users", label: "Балалардың жасы", value: "2 – 5 жас" },
       { icon: "clock", label: "Жұмыс уақыты", value: "08:00–18:00" },
       { icon: "language", label: "Оқыту тілі", value: "Қазақ, орыс тілдері" },
-      { icon: "grid", label: "Топтар саны", value: "6 топ" },
+      { icon: "grid", label: "Топтар саны", value: "3 топ" },
       { icon: "camera", label: "Бейнебақылау", value: "Тәулік бойы, барлық топтарда" },
       { icon: "utensils", label: "Тамақтану", value: "Күніне 4 рет, өз асханасы" },
     ],
