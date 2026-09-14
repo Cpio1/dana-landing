@@ -22,33 +22,30 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-1 text-sm text-ink-soft">
-          <a
-            href={`tel:${contacts.phone.replace(/[^\d+]/g, "")}`}
-            className="font-medium text-ink transition-colors duration-200 hover:text-primary"
-          >
-            {contacts.phone}
-          </a>
           <span>{contacts.address}</span>
+          <span>{contacts.workingHours}</span>
         </div>
 
         <div className="flex items-center gap-3">
-          <a
-            href={contacts.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition-colors duration-200 hover:text-primary"
-          >
-            <Icon name="whatsapp" className="h-4 w-4" />
-          </a>
+          {contacts.whatsappUrl && (
+            <a
+              href={contacts.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition-colors duration-200 hover:text-primary"
+            >
+              <Icon name="whatsapp" className="h-4 w-4" />
+            </a>
+          )}
           <a
             href={contacts.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition-colors duration-200 hover:text-primary"
+            className="flex items-center gap-2 rounded-full border border-border px-3 py-2 text-sm font-medium text-ink-soft transition-colors duration-200 hover:text-primary"
           >
             <Icon name="instagram" className="h-4 w-4" />
+            {contacts.instagramHandle}
           </a>
         </div>
       </Container>

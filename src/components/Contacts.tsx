@@ -10,17 +10,31 @@ export function Contacts() {
   const { contacts } = siteContent;
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(contacts.address)}&output=embed`;
 
-  const rows: { icon: IconName; label: string; value: string; href: string }[] = [
-    {
-      icon: "phone",
-      label: "Телефон",
-      value: contacts.phone,
-      href: `tel:${contacts.phone.replace(/[^\d+]/g, "")}`,
-    },
-    { icon: "mail", label: "Email", value: contacts.email, href: `mailto:${contacts.email}` },
+  const rows: { icon: IconName; label: string; value: string; href?: string }[] = [
+    ...(contacts.phone
+      ? [
+          {
+            icon: "phone" as const,
+            label: "Телефон",
+            value: contacts.phone,
+            href: `tel:${contacts.phone.replace(/[^\d+]/g, "")}`,
+          },
+        ]
+      : []),
+    ...(contacts.email
+      ? [{ icon: "mail" as const, label: "Email", value: contacts.email, href: `mailto:${contacts.email}` }]
+      : []),
     { icon: "map-pin", label: "Мекенжай", value: contacts.address, href: mapSrc },
-    { icon: "whatsapp", label: "WhatsApp", value: "Хабарласу", href: contacts.whatsappUrl },
-    { icon: "instagram", label: "Instagram", value: "@dana_balabakshasy", href: contacts.instagramUrl },
+    { icon: "clock", label: "Жұмыс уақыты", value: contacts.workingHours },
+    ...(contacts.whatsappUrl
+      ? [{ icon: "whatsapp" as const, label: "WhatsApp", value: "Хабарласу", href: contacts.whatsappUrl }]
+      : []),
+    {
+      icon: "instagram",
+      label: "Instagram",
+      value: contacts.instagramHandle,
+      href: contacts.instagramUrl,
+    },
   ];
 
   return (
@@ -34,7 +48,6 @@ export function Contacts() {
             <h2 className="font-heading text-2xl leading-tight text-ink sm:text-3xl">
               {contacts.heading}
             </h2>
-            <p className="mt-2 text-ink-soft">{contacts.workingHours}</p>
 
             <ul className="mt-8 flex flex-col gap-4">
               {rows.map((row) => (
@@ -46,14 +59,18 @@ export function Contacts() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">
                       {row.label}
                     </p>
-                    <a
-                      href={row.href}
-                      target={row.href.startsWith("http") ? "_blank" : undefined}
-                      rel={row.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="text-sm font-medium text-ink transition-colors duration-200 hover:text-primary"
-                    >
-                      {row.value}
-                    </a>
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        target={row.href.startsWith("http") ? "_blank" : undefined}
+                        rel={row.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="text-sm font-medium text-ink transition-colors duration-200 hover:text-primary"
+                      >
+                        {row.value}
+                      </a>
+                    ) : (
+                      <p className="text-sm font-medium text-ink">{row.value}</p>
+                    )}
                   </div>
                 </li>
               ))}

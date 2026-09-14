@@ -4,6 +4,8 @@ import { Icon } from "@/components/ui/Icon";
 export function WhatsAppButton() {
   const { contacts } = siteContent;
 
+  if (!contacts.whatsappUrl) return null;
+
   return (
     <a
       href={contacts.whatsappUrl}

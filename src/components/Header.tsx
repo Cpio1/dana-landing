@@ -12,9 +12,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/90 backdrop-blur-sm">
       <Container className="flex h-16 items-center justify-between sm:h-20">
-        <a href="#" className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-          <span className="font-heading text-lg font-semibold text-ink sm:text-xl">
+        <a href="#" className="flex min-w-0 items-center gap-2">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+          <span className="truncate font-heading text-sm font-semibold text-ink sm:text-lg lg:text-xl">
             {brand.name}
           </span>
         </a>

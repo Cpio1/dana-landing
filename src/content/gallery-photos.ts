@@ -47,4 +47,8 @@ export const galleryPhotos: ImageAsset[] = [
     src: "/photo/image11.jpeg",
     alt: "Ашық аспан астында ұлттық мерекеге арналған сабақта отырған балалар",
   },
+  {
+    src: "/photo/image12.jpeg",
+    alt: "Балабақша ауласында топпен серуендеп жүрген балалар",
+  },
 ];

@@ -115,12 +115,16 @@ export interface SiteContent {
   };
   contacts: {
     heading: string;
-    phone: string;
-    email: string;
+    /** Leave unset until a real phone number is available — do not fill with placeholder data. */
+    phone?: string;
+    /** Leave unset until a real email is available — do not fill with placeholder data. */
+    email?: string;
     address: string;
     workingHours: string;
-    whatsappUrl: string;
+    /** Leave unset until a real WhatsApp number is available. */
+    whatsappUrl?: string;
     instagramUrl: string;
+    instagramHandle: string;
     mapImage: ImageAsset;
   };
   footer: {
