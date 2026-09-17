@@ -33,6 +33,14 @@ export interface ImageAsset {
   src?: string;
   alt: string;
   caption?: string;
+  /**
+   * How the photo fills a fixed-aspect thumbnail: "cover" (default) crops to
+   * fill; "contain" shows the whole photo, letterboxed, for tall/portrait
+   * shots where cropping would cut off heads.
+   */
+  fit?: "cover" | "contain";
+  /** CSS object-position for "cover" mode, e.g. "top" to favor the upper part of the photo. */
+  objectPosition?: string;
 }
 
 export interface NavLink {
@@ -47,8 +55,10 @@ export interface InfoItem {
 }
 
 export interface ActivityItem {
-  icon: IconName;
   title: string;
+  /** One-line description shown under the title, e.g. "Ұлттық және заманауи билер". */
+  caption?: string;
+  image: ImageAsset;
 }
 
 export interface OfficialInfoItem {
@@ -59,6 +69,8 @@ export interface OfficialInfoItem {
 export interface SiteContent {
   brand: {
     name: string;
+    /** Short form for tight spaces (the header) — the full name goes elsewhere (Hero, official info, footer). */
+    shortName: string;
   };
   nav: NavLink[];
   header: {
@@ -88,11 +100,6 @@ export interface SiteContent {
     title: string;
     meals: string[];
     images: ImageAsset[];
-  };
-  transport: {
-    enabled: boolean;
-    heading: string;
-    text: string;
   };
   activities: {
     heading: string;

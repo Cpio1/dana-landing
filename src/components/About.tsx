@@ -14,18 +14,24 @@ export function About() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
           <Reveal delay={0.05}>
-            <div className="max-w-md">
-              <h3 className="font-heading text-lg text-ink">{about.goalTitle}</h3>
-              <p className="mt-3 leading-relaxed text-ink-soft">{about.goalText}</p>
+            <div className="h-full rounded-3xl bg-pastel-mint p-6 sm:p-8">
+              <div className="flex items-center gap-2.5">
+                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-green" />
+                <h3 className="font-heading text-lg text-ink">{about.goalTitle}</h3>
+              </div>
+              <p className="mt-4 leading-relaxed text-ink-soft">{about.goalText}</p>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="max-w-md">
-              <h3 className="font-heading text-lg text-ink">{about.principleTitle}</h3>
-              <p className="mt-3 leading-relaxed text-ink-soft">
+            <div className="h-full rounded-3xl bg-pastel-yellow p-6 sm:p-8">
+              <div className="flex items-center gap-2.5">
+                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-orange" />
+                <h3 className="font-heading text-lg text-ink">{about.principleTitle}</h3>
+              </div>
+              <p className="mt-4 leading-relaxed text-ink-soft">
                 {about.principleText}
               </p>
             </div>

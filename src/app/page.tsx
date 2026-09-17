@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { KeyInfo } from "@/components/KeyInfo";
 import { Nutrition } from "@/components/Nutrition";
-import { Transport } from "@/components/Transport";
 import { Activities } from "@/components/Activities";
 import { Gallery } from "@/components/Gallery";
 import { OfficialInfo } from "@/components/OfficialInfo";
@@ -21,7 +20,6 @@ export default function Home() {
         <About />
         <KeyInfo />
         <Nutrition />
-        <Transport />
         <Activities />
         <Gallery />
         <OfficialInfo />

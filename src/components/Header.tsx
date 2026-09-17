@@ -10,32 +10,32 @@ export function Header() {
   const { brand, nav, header } = siteContent;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-bg/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-border bg-bg">
       <Container className="flex h-16 items-center justify-between sm:h-20">
-        <a href="#" className="flex min-w-0 items-center gap-2">
+        <a href="#" className="flex shrink-0 items-center gap-2">
           <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-          <span className="truncate font-heading text-sm font-semibold text-ink sm:text-lg lg:text-xl">
-            {brand.name}
+          <span className="whitespace-nowrap font-heading text-sm font-semibold text-ink sm:text-lg lg:text-xl">
+            {brand.shortName}
           </span>
         </a>
 
         <nav
-          className="hidden items-center gap-1 lg:flex"
+          className="hidden items-center gap-0.5 lg:flex"
           aria-label="Негізгі навигация"
         >
           {nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="rounded-full px-3.5 py-2 text-sm font-medium text-ink-soft transition-colors duration-200 hover:text-ink"
+              className="shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors duration-200 hover:text-ink"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden lg:block">
-          <ButtonLink href={header.ctaHref} variant="primary" className="text-sm">
+        <div className="hidden shrink-0 lg:block">
+          <ButtonLink href={header.ctaHref} variant="primary" size="sm">
             {header.ctaLabel}
           </ButtonLink>
         </div>

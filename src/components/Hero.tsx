@@ -14,7 +14,7 @@ export function Hero() {
       <Container className="grid grid-cols-1 items-center gap-10 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
         <Reveal>
           <div className="flex flex-col items-start gap-5">
-            <h1 className="font-heading text-3xl leading-tight text-ink sm:text-4xl lg:text-5xl">
+            <h1 className="font-heading text-2xl leading-tight text-ink sm:text-3xl lg:text-4xl">
               {hero.title}
             </h1>
             <p className="max-w-md text-lg leading-relaxed text-ink-soft">

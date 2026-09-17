@@ -2,18 +2,11 @@ import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { Icon } from "@/components/ui/Icon";
+import { PlaceholderPhoto } from "@/components/ui/PlaceholderPhoto";
 import { Decor } from "@/components/ui/Decor";
 import { WaveDivider } from "@/components/ui/WaveDivider";
 
-const ACCENTS = [
-  "bg-coral/12 text-coral",
-  "bg-blue/12 text-blue",
-  "bg-purple/12 text-purple",
-  "bg-green/12 text-green",
-  "bg-orange/12 text-orange",
-  "bg-[#e8b800]/15 text-[#c99500]",
-];
+const ACCENT_DOTS = ["bg-coral", "bg-blue", "bg-purple", "bg-green", "bg-orange", "bg-[#c99500]"];
 
 export function Activities() {
   const { activities } = siteContent;
@@ -27,16 +20,28 @@ export function Activities() {
       <Container>
         <SectionHeading heading={activities.heading} />
 
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {activities.items.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.04}>
-              <div className="flex flex-col items-center gap-3 rounded-2xl bg-bg px-4 py-6 text-center shadow-sm shadow-ink/5">
-                <span
-                  className={`flex h-11 w-11 items-center justify-center rounded-full ${ACCENTS[index % ACCENTS.length]}`}
-                >
-                  <Icon name={item.icon} className="h-5 w-5" />
-                </span>
-                <span className="text-sm font-medium text-ink">{item.title}</span>
+              <div className="overflow-hidden rounded-2xl bg-bg shadow-sm shadow-ink/5 transition-transform duration-300 ease-out hover:scale-[1.03]">
+                <PlaceholderPhoto
+                  image={item.image}
+                  rounded="rounded-t-2xl"
+                  className="aspect-[4/3] w-full"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+                <div className="flex flex-col gap-1 px-4 py-4">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`h-2 w-2 shrink-0 rounded-full ${ACCENT_DOTS[index % ACCENT_DOTS.length]}`}
+                      aria-hidden="true"
+                    />
+                    <h3 className="font-heading text-base text-ink">{item.title}</h3>
+                  </div>
+                  {item.caption && (
+                    <p className="truncate text-xs text-ink-soft">{item.caption}</p>
+                  )}
+                </div>
               </div>
             </Reveal>
           ))}

@@ -28,7 +28,7 @@ export function SectionHeading({
           {heading}
         </h2>
         {subheading && (
-          <p className="mt-1 max-w-xl text-base leading-relaxed text-ink-soft">
+          <p className="mt-1 max-w-xl whitespace-pre-line text-base leading-relaxed text-ink-soft">
             {subheading}
           </p>
         )}
