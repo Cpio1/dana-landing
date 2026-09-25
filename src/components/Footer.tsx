@@ -12,8 +12,8 @@ export function Footer() {
       <Decor name="star" className="absolute right-10 top-6 h-3 w-3 text-yellow/50" />
       <Container className="flex flex-col gap-8 py-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-3">
-          <span className="flex items-center gap-2 font-heading text-lg font-semibold text-ink">
-            <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+          <span className="flex max-w-xs items-start gap-2 font-heading text-base font-semibold leading-snug text-ink">
+            <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
             {brand.name}
           </span>
           <p className="max-w-xs text-sm leading-relaxed text-ink-soft">

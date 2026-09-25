@@ -1,17 +1,63 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlaceholderPhoto } from "@/components/ui/PlaceholderPhoto";
 import { Icon } from "@/components/ui/Icon";
+import { Button } from "@/components/ui/Button";
+import type { ImageAsset } from "@/types/content";
+
+/** Бастапқыда көрсетілетін фотолар саны. */
+const INITIAL_COUNT = 6;
+
+function GalleryItem({
+  image,
+  onOpen,
+}: {
+  image: ImageAsset;
+  onOpen: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`Үлкейту: ${image.alt}`}
+      className="block w-full text-left"
+    >
+      <PlaceholderPhoto
+        image={image}
+        rounded="rounded-2xl"
+        className="aspect-[4/3] w-full transition-transform duration-300 ease-out hover:scale-[1.03]"
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+      />
+    </button>
+  );
+}
 
 export function Gallery() {
   const { gallery } = siteContent;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const total = gallery.images.length;
+  const visibleImages = gallery.images.slice(0, INITIAL_COUNT);
+  const extraImages = gallery.images.slice(INITIAL_COUNT);
+
+  const toggleExpanded = () => {
+    if (expanded) {
+      // Жасырғанда бет төменде қалып қоймауы үшін галереяның басына ораламыз.
+      sectionRef.current?.scrollIntoView({
+        behavior: shouldReduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    }
+    setExpanded((value) => !value);
+  };
 
   const close = useCallback(() => setActiveIndex(null), []);
   const next = useCallback(
@@ -37,29 +83,52 @@ export function Gallery() {
   const active = activeIndex !== null ? gallery.images[activeIndex] : null;
 
   return (
-    <section id="gallery" className="scroll-mt-20 bg-bg py-16 sm:py-20">
+    <section ref={sectionRef} id="gallery" className="scroll-mt-20 bg-bg py-16 sm:py-20">
       <Container>
         <SectionHeading heading={gallery.heading} subheading={gallery.subheading} />
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {gallery.images.map((image, index) => (
-            <Reveal key={image.alt + index} delay={(index % 3) * 0.05}>
-              <button
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                aria-label={`Үлкейту: ${image.alt}`}
-                className="block w-full text-left"
-              >
-                <PlaceholderPhoto
-                  image={image}
-                  rounded="rounded-2xl"
-                  className="aspect-[4/3] w-full transition-transform duration-300 ease-out hover:scale-[1.03]"
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                />
-              </button>
+          {visibleImages.map((image, index) => (
+            <Reveal key={image.src} delay={(index % 3) * 0.05}>
+              <GalleryItem image={image} onOpen={() => setActiveIndex(index)} />
             </Reveal>
           ))}
+
+          <AnimatePresence initial={false}>
+            {expanded &&
+              extraImages.map((image, i) => (
+                <motion.div
+                  key={image.src}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? undefined : { opacity: 0, y: 8 }}
+                  transition={{ duration: 0.45, delay: Math.min(i, 9) * 0.04, ease: "easeOut" }}
+                >
+                  <GalleryItem
+                    image={image}
+                    onOpen={() => setActiveIndex(INITIAL_COUNT + i)}
+                  />
+                </motion.div>
+              ))}
+          </AnimatePresence>
         </div>
+
+        {extraImages.length > 0 && (
+          <div className="mt-10 flex justify-center">
+            <Button
+              type="button"
+              onClick={toggleExpanded}
+              aria-expanded={expanded}
+              className="shadow-sm"
+            >
+              {expanded ? "Жасыру" : "Көбірек көру"}
+              <Icon
+                name="chevron-down"
+                className={`h-4 w-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+              />
+            </Button>
+          </div>
+        )}
       </Container>
 
       {active && (
