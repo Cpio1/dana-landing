@@ -5,15 +5,15 @@ import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 
-// Мәзір пункттерінің түстері (ретімен): кораллдық, қызғылт сары, қыша, жасыл, көк, күлгін.
-// Мәтін түстері ақ фонда оқылатындай қоюлау алынған; hover — сол түстің жеңіл фоны.
+// Мәзір пункттері — әрқайсысы өз түсіндегі пастель капсула (ретімен): кораллдық,
+// қызғылт сары, қыша, жасыл, көк, күлгін. Мәтін түсі фонда оқылатындай қоюлау алынған.
 const NAV_COLORS = [
-  "text-[#c8403c] hover:bg-coral/10",
-  "text-[#b8570c] hover:bg-orange/10",
-  "text-[#8a6700] hover:bg-yellow/15",
-  "text-[#1c7f5c] hover:bg-green/10",
-  "text-[#1f72ad] hover:bg-blue/10",
-  "text-[#7556d0] hover:bg-purple/10",
+  "text-[#bb3a36] bg-coral/12 border-coral/25 hover:bg-coral/20 hover:shadow-coral/25",
+  "text-[#a64d08] bg-orange/14 border-orange/30 hover:bg-orange/22 hover:shadow-orange/25",
+  "text-[#7d5d00] bg-yellow/20 border-yellow/40 hover:bg-yellow/30 hover:shadow-yellow/30",
+  "text-[#18714f] bg-green/12 border-green/25 hover:bg-green/20 hover:shadow-green/25",
+  "text-[#1a669c] bg-blue/12 border-blue/25 hover:bg-blue/20 hover:shadow-blue/25",
+  "text-[#6a4cc4] bg-purple/12 border-purple/25 hover:bg-purple/20 hover:shadow-purple/25",
 ];
 
 export function Header() {
@@ -34,14 +34,14 @@ export function Header() {
         </a>
 
         <nav
-          className="hidden items-center gap-0.5 lg:flex"
+          className="hidden items-center gap-1 lg:flex xl:gap-1.5"
           aria-label="Негізгі навигация"
         >
           {nav.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              className={`shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium transition-colors duration-200 ${NAV_COLORS[index % NAV_COLORS.length]}`}
+              className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[13px] font-medium transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md ${NAV_COLORS[index % NAV_COLORS.length]}`}
             >
               {link.label}
             </a>
@@ -53,7 +53,7 @@ export function Header() {
             href={header.ctaHref}
             variant="primary"
             size="sm"
-            className="bg-gradient-to-r from-orange-400 via-rose-400 to-pink-400 hover:from-orange-500 hover:via-rose-500 hover:to-pink-500"
+            className="border border-white/40 bg-gradient-to-r from-orange-400 via-rose-400 to-pink-400 shadow-sm shadow-rose-300/40 transition! duration-200 ease-out hover:-translate-y-0.5 hover:from-orange-500 hover:via-rose-500 hover:to-pink-500 hover:shadow-md hover:shadow-rose-300/50"
           >
             {header.ctaLabel}
           </ButtonLink>

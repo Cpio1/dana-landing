@@ -17,7 +17,14 @@ export type DecorName =
   | "carrot"
   | "camera"
   | "triangle"
-  | "ring";
+  | "ring"
+  | "brush"
+  | "ball"
+  | "leaf"
+  | "tree"
+  | "butterfly"
+  | "plane"
+  | "blob";
 
 // Flat-стиль: жұмсақ мөлдір толтыру + сол түстің жұқа контуры.
 const SOFT_FILL = { fill: "currentColor", fillOpacity: 0.28 } as const;
@@ -142,6 +149,64 @@ const PATHS: Record<DecorName, React.ReactNode> = {
   ),
   triangle: <path d="M12 5.2 19.4 18H4.6z" {...SOFT_FILL} />,
   ring: <circle cx="12" cy="12" r="6" fill="none" strokeWidth={2} />,
+  brush: (
+    <g transform="rotate(38 12 12)">
+      <rect x="10.8" y="1.8" width="2.4" height="11.2" rx="1.2" {...SOFT_FILL} />
+      <rect x="10.3" y="13" width="3.4" height="2.6" rx=".5" fill="none" />
+      <path
+        d="M10.3 15.6h3.4c0 2.7-.6 4.7-1.7 6.1-1.1-1.4-1.7-3.4-1.7-6.1z"
+        fill="currentColor"
+        fillOpacity={0.6}
+      />
+    </g>
+  ),
+  ball: (
+    <>
+      <circle cx="12" cy="12" r="8" {...SOFT_FILL} />
+      <path d="M4 12h16M12 4c-3 2.3-3 13.7 0 16M12 4c3 2.3 3 13.7 0 16" fill="none" />
+    </>
+  ),
+  leaf: (
+    <>
+      <path d="M5 19C5 10.5 10.5 5 19 5c0 8.5-5.5 14-14 14z" {...SOFT_FILL} />
+      <path d="M5 19 14 10M9.2 14.8V12M11.6 12.4h2.6" fill="none" />
+    </>
+  ),
+  tree: (
+    <>
+      <path
+        d="M12 3.4c-2.9 0-5 2.1-5 4.8-1.5.6-2.6 2-2.6 3.8 0 2.4 2 4.2 4.4 4.2h6.4c2.4 0 4.4-1.8 4.4-4.2 0-1.8-1.1-3.2-2.6-3.8 0-2.7-2.1-4.8-5-4.8z"
+        {...SOFT_FILL}
+      />
+      <path d="M12 16.2v4.9M12 18.4l-2.2-1.8M12 13.2l1.8-1.6" fill="none" />
+    </>
+  ),
+  butterfly: (
+    <>
+      <path
+        d="M12 11.2C10.1 6.7 5.6 4.6 4.1 6.6c-1.4 2 .4 5.2 4 5.8-3 .8-3.6 3.8-2 5 1.8 1.4 4.6-.6 5.9-4.3z"
+        {...SOFT_FILL}
+      />
+      <path
+        d="M12 11.2c1.9-4.5 6.4-6.6 7.9-4.6 1.4 2-.4 5.2-4 5.8 3 .8 3.6 3.8 2 5-1.8 1.4-4.6-.6-5.9-4.3z"
+        {...SOFT_FILL}
+      />
+      <path d="M12 8.6v8.2M12 8.6 10.6 5.6M12 8.6l1.4-3" fill="none" />
+    </>
+  ),
+  plane: (
+    <>
+      <path d="M3 11.4 21 4l-5.2 16-4.1-6.2z" {...SOFT_FILL} />
+      <path d="M11.7 13.8 21 4M11.7 13.8 11 19l2.3-3.4" fill="none" />
+    </>
+  ),
+  blob: (
+    <path
+      d="M7.4 5.4c3.1-2 7.9-1.6 10.5 1.4 2.6 3 2.4 7.9-.6 10.7-3 2.8-8.5 3-11.3.2-2.8-2.8-1.7-10.3 1.4-12.3z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
 };
 
 /**
@@ -153,9 +218,12 @@ const PATHS: Record<DecorName, React.ReactNode> = {
 export function Decor({
   name,
   className = "h-6 w-6 text-primary/25",
+  style,
 }: {
   name: DecorName;
   className?: string;
+  /** Mostly for `animationDelay`, so floating items don't move in sync. */
+  style?: React.CSSProperties;
 }) {
   return (
     <svg
@@ -170,6 +238,7 @@ export function Decor({
           ? `${className} drop-shadow-[0_2px_3px_rgb(47_180_229/0.18)]`
           : className
       }`}
+      style={style}
       aria-hidden="true"
     >
       {PATHS[name]}

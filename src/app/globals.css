@@ -114,3 +114,56 @@ body {
 .decor-float {
   animation: decor-float 5s ease-in-out infinite alternate;
 }
+
+/* Декор: баяу тербелу (бұрылу), айналу және жыпылықтау — тек transform/opacity. */
+@keyframes decor-sway {
+  from {
+    transform: rotate(-6deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes decor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes decor-drift {
+  from {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(8px, -6px) rotate(4deg);
+  }
+}
+
+@keyframes decor-twinkle {
+  from {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.decor-sway {
+  transform-origin: 50% 90%;
+  animation: decor-sway 4.5s ease-in-out infinite alternate;
+}
+
+.decor-spin {
+  animation: decor-spin 40s linear infinite;
+}
+
+.decor-drift {
+  animation: decor-drift 6s ease-in-out infinite alternate;
+}
+
+.decor-twinkle {
+  animation: decor-twinkle 2.8s ease-in-out infinite alternate;
+}
