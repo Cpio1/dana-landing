@@ -13,7 +13,11 @@ export function Activities() {
 
   return (
     <section id="activities" className="scroll-mt-20 relative overflow-hidden bg-pastel-lilac py-16 sm:py-20">
-      <Decor name="star" className="absolute left-8 top-14 h-3 w-3 text-purple/45" />
+      <Decor name="notes" className="absolute right-5 top-6 h-7 w-7 text-purple opacity-55 sm:right-12 sm:top-8 sm:h-8 sm:w-8" />
+      <Decor name="pencil" className="absolute hidden xl:block left-6 top-1/3 h-11 w-11 text-orange opacity-60" />
+      <Decor name="book" className="absolute hidden xl:block right-6 top-1/2 h-10 w-10 text-blue opacity-55" />
+      <Decor name="block" className="absolute hidden xl:block left-10 bottom-24 h-8 w-8 text-green opacity-50" />
+      <Decor name="star" className="absolute left-8 top-6 h-3 w-3 text-purple/45 sm:top-14" />
       <Decor name="dot" className="absolute right-12 top-24 h-1.5 w-1.5 text-primary/30" />
       <Decor name="star" className="absolute bottom-10 right-16 h-2.5 w-2.5 text-blue/40" />
 

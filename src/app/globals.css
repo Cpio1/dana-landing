@@ -100,3 +100,17 @@ body {
 .gallery-fade-in {
   animation: gallery-fade-in 0.4s ease-out both;
 }
+
+/* Декор: өте баяу, жеңіл тербелу (тек transform). Бірнеше элементте ғана қолданылады. */
+@keyframes decor-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+.decor-float {
+  animation: decor-float 5s ease-in-out infinite alternate;
+}

@@ -11,6 +11,11 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-pastel-cream">
+      <Decor name="rainbow" className="absolute hidden xl:block left-6 top-10 h-12 w-12 opacity-50" />
+      <Decor name="sun" className="absolute right-4 top-4 h-7 w-7 text-yellow opacity-70 sm:right-8 sm:top-6 sm:h-9 sm:w-9" />
+      <Decor name="cloud" className="absolute hidden xl:block decor-float left-10 bottom-24 h-10 w-10 text-blue/35" />
+      <Decor name="balloon" className="absolute hidden xl:block decor-float right-8 bottom-28 h-10 w-10 text-coral opacity-50" />
+      <Decor name="star" className="absolute hidden xl:block right-16 top-24 h-3 w-3 text-purple/50" />
       <Container className="grid grid-cols-1 items-center gap-10 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
         <Reveal>
           <div className="flex flex-col items-start gap-5">

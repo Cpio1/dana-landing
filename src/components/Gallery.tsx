@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
+import { Decor } from "@/components/ui/Decor";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PlaceholderPhoto } from "@/components/ui/PlaceholderPhoto";
 import { Icon } from "@/components/ui/Icon";
@@ -84,7 +85,12 @@ export function Gallery() {
   const active = activeIndex !== null ? gallery.images[activeIndex] : null;
 
   return (
-    <section ref={sectionRef} id="gallery" className="scroll-mt-20 bg-bg py-16 sm:py-20">
+    <section ref={sectionRef} id="gallery" className="scroll-mt-20 relative overflow-hidden bg-bg py-16 sm:py-20">
+      <Decor name="camera" className="absolute right-5 top-6 h-7 w-7 text-blue opacity-50 sm:right-12 sm:top-8 sm:h-9 sm:w-9" />
+      <Decor name="heart" className="absolute right-16 top-14 h-3.5 w-3.5 text-coral/50 sm:right-28 sm:top-16" />
+      <Decor name="heart" className="absolute hidden xl:block left-8 top-1/3 h-6 w-6 text-coral/40" />
+      <Decor name="star" className="absolute hidden xl:block left-14 top-1/2 h-3 w-3 text-yellow/70" />
+      <Decor name="heart" className="absolute hidden xl:block right-10 bottom-24 h-5 w-5 text-purple/40" />
       <Container>
         <SectionHeading heading={gallery.heading} subheading={gallery.subheading} />
 

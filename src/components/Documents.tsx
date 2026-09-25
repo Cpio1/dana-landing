@@ -1,5 +1,6 @@
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
+import { Decor } from "@/components/ui/Decor";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
@@ -8,7 +9,10 @@ export function Documents() {
   const { documents } = siteContent;
 
   return (
-    <section id="documents" className="scroll-mt-20 bg-bg py-16 sm:py-20">
+    <section id="documents" className="scroll-mt-20 relative overflow-hidden bg-bg py-16 sm:py-20">
+      <Decor name="pencil" className="absolute right-6 top-6 h-7 w-7 text-yellow opacity-70 sm:right-12 sm:top-8" />
+      <Decor name="block" className="absolute hidden xl:block left-8 bottom-12 h-8 w-8 text-coral opacity-45" />
+      <Decor name="ring" className="absolute hidden xl:block right-10 bottom-10 h-6 w-6 text-orange/45" />
       <Container>
         <SectionHeading heading={documents.heading} />
 

@@ -38,6 +38,10 @@ export function Nutrition() {
 
   return (
     <section id="nutrition" className="scroll-mt-20 relative overflow-hidden bg-pastel-yellow py-16 sm:py-20">
+      <Decor name="apple" className="absolute left-5 top-5 h-7 w-7 text-coral opacity-55 sm:left-10 sm:top-8 sm:h-8 sm:w-8" />
+      <Decor name="carrot" className="absolute hidden xl:block left-8 bottom-16 h-10 w-10 text-orange opacity-55" />
+      <Decor name="apple" className="absolute hidden xl:block right-8 bottom-20 h-8 w-8 text-green opacity-50" />
+      <Decor name="dot" className="absolute hidden xl:block right-14 top-16 h-2 w-2 text-orange/45" />
       <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <div className="relative">

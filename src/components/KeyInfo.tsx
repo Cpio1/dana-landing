@@ -19,6 +19,11 @@ export function KeyInfo() {
 
   return (
     <section id="key-info" className="scroll-mt-20 relative overflow-hidden bg-pastel-blue py-16 sm:py-20">
+      <Decor name="cloud" className="absolute decor-float right-6 top-5 h-9 w-9 text-blue/35 sm:right-16 sm:top-8 sm:h-11 sm:w-11" />
+      <Decor name="star" className="absolute right-20 top-14 h-3 w-3 text-yellow/70 sm:right-32 sm:top-16" />
+      <Decor name="sun" className="absolute hidden xl:block left-8 top-10 h-10 w-10 text-orange/50" />
+      <Decor name="star" className="absolute hidden xl:block left-16 bottom-14 h-3.5 w-3.5 text-purple/45" />
+      <Decor name="star" className="absolute hidden xl:block right-10 bottom-16 h-2.5 w-2.5 text-coral/45" />
       <Decor name="dot" className="absolute right-8 top-10 h-2 w-2 text-blue/30" />
       <Decor name="dot" className="absolute left-10 bottom-12 h-1.5 w-1.5 text-primary/25" />
 

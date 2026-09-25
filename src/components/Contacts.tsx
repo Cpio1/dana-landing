@@ -39,6 +39,9 @@ export function Contacts() {
 
   return (
     <section id="contacts" className="scroll-mt-20 relative overflow-hidden bg-pastel-blue py-16 sm:py-20">
+      <Decor name="balloon" className="absolute hidden xl:block decor-float left-8 top-1/3 h-11 w-11 text-purple opacity-45" />
+      <Decor name="star" className="absolute right-20 top-6 h-3 w-3 text-yellow/70 sm:right-32 sm:top-16" />
+      <Decor name="rainbow" className="absolute hidden xl:block right-8 bottom-28 h-10 w-10 opacity-45" />
       <Decor name="cloud" className="absolute right-8 top-8 h-8 w-8 text-blue/30 sm:right-16" />
       <Decor name="heart" className="absolute left-6 bottom-10 h-3.5 w-3.5 text-primary/35" />
 
