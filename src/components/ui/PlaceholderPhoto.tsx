@@ -19,6 +19,9 @@ interface PlaceholderPhotoProps {
   objectPosition?: string;
   width?: number;
   height?: number;
+  /** next/image quality; must be listed in `images.qualities` (next.config.ts). */
+  quality?: number;
+  loading?: "lazy" | "eager";
 }
 
 /**
@@ -34,6 +37,8 @@ export function PlaceholderPhoto({
   objectPosition = image.objectPosition,
   width,
   height,
+  quality,
+  loading,
 }: PlaceholderPhotoProps) {
   const isNaturalSize = fit === "contain" && width && height;
   const isContain = fit === "contain";
@@ -50,23 +55,31 @@ export function PlaceholderPhoto({
             width={width}
             height={height}
             sizes={sizes}
+            quality={quality}
+            loading={loading}
             className="h-auto w-full object-contain"
           />
         ) : isContain ? (
           <>
+            {/* Размытый фон без CSS blur: крошечная версия фото, растянутая браузером,
+                сама выглядит мягкой, но не нагружает прокрутку как filter: blur. */}
             <Image
               src={image.src}
               alt=""
               aria-hidden="true"
               fill
-              sizes={sizes}
-              className="scale-110 object-cover opacity-60 blur-2xl"
+              sizes="32px"
+              quality={quality}
+              loading={loading}
+              className="object-cover opacity-60"
             />
             <Image
               src={image.src}
               alt={image.alt}
               fill
               sizes={sizes}
+              quality={quality}
+              loading={loading}
               style={objectPosition ? { objectPosition } : undefined}
               className="object-contain"
             />
@@ -77,6 +90,8 @@ export function PlaceholderPhoto({
             alt={image.alt}
             fill
             sizes={sizes}
+            quality={quality}
+            loading={loading}
             style={objectPosition ? { objectPosition } : undefined}
             className="object-cover"
           />

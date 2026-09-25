@@ -5,6 +5,17 @@ import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 
+// Мәзір пункттерінің түстері (ретімен): кораллдық, қызғылт сары, қыша, жасыл, көк, күлгін.
+// Мәтін түстері ақ фонда оқылатындай қоюлау алынған; hover — сол түстің жеңіл фоны.
+const NAV_COLORS = [
+  "text-[#c8403c] hover:bg-coral/10",
+  "text-[#b8570c] hover:bg-orange/10",
+  "text-[#8a6700] hover:bg-yellow/15",
+  "text-[#1c7f5c] hover:bg-green/10",
+  "text-[#1f72ad] hover:bg-blue/10",
+  "text-[#7556d0] hover:bg-purple/10",
+];
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const { brand, nav, header } = siteContent;
@@ -13,7 +24,10 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-bg">
       <Container className="flex h-16 items-center justify-between sm:h-20">
         <a href="#" className="flex shrink-0 items-center gap-2">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+          <span
+            className="h-2 w-2 shrink-0 rounded-full bg-primary ring-4 ring-primary/15"
+            aria-hidden="true"
+          />
           <span className="whitespace-nowrap font-heading text-sm font-semibold text-ink sm:text-lg lg:text-xl">
             {brand.shortName}
           </span>
@@ -23,11 +37,11 @@ export function Header() {
           className="hidden items-center gap-0.5 lg:flex"
           aria-label="Негізгі навигация"
         >
-          {nav.map((link) => (
+          {nav.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              className="shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors duration-200 hover:text-ink"
+              className={`shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium transition-colors duration-200 ${NAV_COLORS[index % NAV_COLORS.length]}`}
             >
               {link.label}
             </a>
@@ -35,7 +49,12 @@ export function Header() {
         </nav>
 
         <div className="hidden shrink-0 lg:block">
-          <ButtonLink href={header.ctaHref} variant="primary" size="sm">
+          <ButtonLink
+            href={header.ctaHref}
+            variant="primary"
+            size="sm"
+            className="bg-gradient-to-r from-orange-400 via-rose-400 to-pink-400 hover:from-orange-500 hover:via-rose-500 hover:to-pink-500"
+          >
             {header.ctaLabel}
           </ButtonLink>
         </div>
