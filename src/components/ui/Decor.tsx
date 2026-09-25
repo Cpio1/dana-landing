@@ -8,10 +8,11 @@ export type DecorName =
   | "wave";
 
 const PATHS: Record<DecorName, React.ReactNode> = {
+  // Ақ толтырылған бұлт: currentColor (жұмсақ көк) — оның контуры.
   cloud: (
     <path
       d="M7 17c-2.5 0-4.5-2-4.5-4.3 0-2.2 1.7-4 3.9-4.3.9-2 2.9-3.4 5.2-3.4 2.8 0 5.1 2 5.6 4.6H18c2.2 0 4 1.8 4 4S20.2 17 18 17H7z"
-      fill="none"
+      fill="#ffffff"
     />
   ),
   star: (
@@ -58,7 +59,11 @@ export function Decor({
       strokeWidth={1.4}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      className={
+        name === "cloud"
+          ? `${className} drop-shadow-[0_2px_3px_rgb(47_180_229/0.18)]`
+          : className
+      }
       aria-hidden="true"
     >
       {PATHS[name]}
