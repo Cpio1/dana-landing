@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { getImageProps } from "next/image";
 import { siteContent } from "@/content/site-content";
 import { Container } from "@/components/ui/Container";
 import { Decor } from "@/components/ui/Decor";
@@ -13,18 +14,43 @@ import type { ImageAsset } from "@/types/content";
 /** Бастапқыда көрсетілетін фотолар саны. */
 const INITIAL_COUNT = 6;
 const GALLERY_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+// Лайтбокс не шире max-w-3xl (768px): без этого браузер грузил бы версию на 1920px.
+const LIGHTBOX_SIZES = "(max-width: 800px) 100vw, 768px";
 
-function GalleryItem({
+/**
+ * Заранее загружает и декодирует фото для лайтбокса тем же srcset/sizes, что и
+ * у настоящего <img>, — браузер берёт тот же файл из кэша, и переключение мгновенное.
+ */
+function preloadLightboxImage(image: ImageAsset) {
+  if (!image.src) return;
+  const variants = [{ sizes: LIGHTBOX_SIZES }];
+  // Для вертикальных фото есть ещё крошечный фон (sizes="32px") — он тоже нужен сразу.
+  if (image.fit === "contain") variants.push({ sizes: "32px" });
+  for (const { sizes } of variants) {
+    const { props } = getImageProps({ src: image.src, alt: "", fill: true, sizes });
+    const img = new window.Image();
+    img.sizes = props.sizes ?? sizes;
+    if (props.srcSet) img.srcset = props.srcSet;
+    img.src = props.src;
+    img.decode().catch(() => {});
+  }
+}
+
+// memo: при открытии/листании лайтбокса меняется только activeIndex, и карточки
+// сетки (их пропсы стабильны) не перерисовываются.
+const GalleryItem = memo(function GalleryItem({
   image,
+  index,
   onOpen,
 }: {
   image: ImageAsset;
-  onOpen: () => void;
+  index: number;
+  onOpen: (index: number) => void;
 }) {
   return (
     <button
       type="button"
-      onClick={onOpen}
+      onClick={() => onOpen(index)}
       aria-label={`Үлкейту: ${image.alt}`}
       className="block w-full text-left"
     >
@@ -38,7 +64,7 @@ function GalleryItem({
       />
     </button>
   );
-}
+});
 
 export function Gallery() {
   const { gallery } = siteContent;
@@ -61,6 +87,7 @@ export function Gallery() {
     setExpanded((value) => !value);
   };
 
+  const open = useCallback((index: number) => setActiveIndex(index), []);
   const close = useCallback(() => setActiveIndex(null), []);
   const next = useCallback(
     () => setActiveIndex((i) => (i === null ? null : (i + 1) % total)),
@@ -82,6 +109,13 @@ export function Gallery() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeIndex, close, next, prev]);
 
+  // Предзагружаем только соседние фото (предыдущее и следующее), а не все 30+.
+  useEffect(() => {
+    if (activeIndex === null) return;
+    preloadLightboxImage(gallery.images[(activeIndex + 1) % total]);
+    preloadLightboxImage(gallery.images[(activeIndex - 1 + total) % total]);
+  }, [activeIndex, gallery.images, total]);
+
   const active = activeIndex !== null ? gallery.images[activeIndex] : null;
 
   return (
@@ -96,11 +130,7 @@ export function Gallery() {
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visibleImages.map((image, index) => (
-            <GalleryItem
-              key={image.src}
-              image={image}
-              onOpen={() => setActiveIndex(index)}
-            />
+            <GalleryItem key={image.src} image={image} index={index} onOpen={open} />
           ))}
 
           {/* Қалған фотолар батырма басылғанға дейін мүлде рендерленбейді және жүктелмейді.
@@ -112,10 +142,7 @@ export function Gallery() {
                 className="gallery-fade-in"
                 style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
               >
-                <GalleryItem
-                  image={image}
-                  onOpen={() => setActiveIndex(INITIAL_COUNT + i)}
-                />
+                <GalleryItem image={image} index={INITIAL_COUNT + i} onOpen={open} />
               </div>
             ))}
         </div>
@@ -175,7 +202,8 @@ export function Gallery() {
               image={active}
               rounded="rounded-2xl"
               className="h-full w-full"
-              sizes="90vw"
+              sizes={LIGHTBOX_SIZES}
+              loading="eager"
             />
           </div>
 

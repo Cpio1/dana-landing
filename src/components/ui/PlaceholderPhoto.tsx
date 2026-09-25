@@ -59,20 +59,25 @@ export function PlaceholderPhoto({
             loading={loading}
             className="h-auto w-full object-contain"
           />
-        ) : isContain ? (
+        ) : (
+          // Одна структура для всех форматов: основной <img> всегда в одной позиции,
+          // поэтому при переключении вертикальное ↔ горизонтальное фото React его не
+          // пересоздаёт (меняются только src и object-fit), а размер контейнера постоянен.
           <>
-            {/* Размытый фон без CSS blur: крошечная версия фото, растянутая браузером,
-                сама выглядит мягкой, но не нагружает прокрутку как filter: blur. */}
-            <Image
-              src={image.src}
-              alt=""
-              aria-hidden="true"
-              fill
-              sizes="32px"
-              quality={quality}
-              loading={loading}
-              className="object-cover opacity-60"
-            />
+            {isContain && (
+              // Размытый фон без CSS blur: крошечная версия фото, растянутая браузером,
+              // сама выглядит мягкой, но не нагружает прокрутку как filter: blur.
+              <Image
+                src={image.src}
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="32px"
+                quality={quality}
+                loading={loading}
+                className="object-cover opacity-60"
+              />
+            )}
             <Image
               src={image.src}
               alt={image.alt}
@@ -81,20 +86,9 @@ export function PlaceholderPhoto({
               quality={quality}
               loading={loading}
               style={objectPosition ? { objectPosition } : undefined}
-              className="object-contain"
+              className={isContain ? "object-contain" : "object-cover"}
             />
           </>
-        ) : (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes={sizes}
-            quality={quality}
-            loading={loading}
-            style={objectPosition ? { objectPosition } : undefined}
-            className="object-cover"
-          />
         )
       ) : (
         <div
