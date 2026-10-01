@@ -127,6 +127,8 @@ export interface SiteContent {
     /** Leave unset until a real email is available — do not fill with placeholder data. */
     email?: string;
     address: string;
+    /** "lat,lng" of the address, used for the Google Maps embed and link. */
+    mapCoordinates: string;
     workingHours: string;
     /** Leave unset until a real WhatsApp number is available. */
     whatsappUrl?: string;

@@ -150,7 +150,9 @@ export const siteContent: SiteContent = {
   contacts: {
     heading: "Бізбен қалай байланысуға болады",
     phone: "+7 747 103 19 99",
-    address: "Алматы облысы, Іле ауданы, ҚазЦИК кенті, Достық көшесі, 1",
+    address: "Алматы облысы, Іле ауданы, Қарасу ауылы, Тәуелсіздік көшесі, 32",
+    // Exact point of Тәуелсіздік 32, Қарасу (from 2GIS) — Google can't geocode this street by name.
+    mapCoordinates: "43.425354,77.037494",
     workingHours: "08:00–18:00",
     instagramUrl: "https://www.instagram.com/dana.balabaksha2023/",
     instagramHandle: "@dana.balabaksha2023",

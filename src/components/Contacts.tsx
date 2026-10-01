@@ -8,7 +8,8 @@ import type { IconName } from "@/types/content";
 
 export function Contacts() {
   const { contacts } = siteContent;
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(contacts.address)}&output=embed`;
+  const mapLink = `https://www.google.com/maps?q=${contacts.mapCoordinates}&z=17`;
+  const mapSrc = `https://www.google.com/maps?q=${contacts.mapCoordinates}&z=16&output=embed`;
 
   const rows: { icon: IconName; label: string; value: string; href?: string }[] = [
     ...(contacts.phone
@@ -24,7 +25,7 @@ export function Contacts() {
     ...(contacts.email
       ? [{ icon: "mail" as const, label: "Email", value: contacts.email, href: `mailto:${contacts.email}` }]
       : []),
-    { icon: "map-pin", label: "Мекенжай", value: contacts.address, href: mapSrc },
+    { icon: "map-pin", label: "Мекенжай", value: contacts.address, href: mapLink },
     { icon: "clock", label: "Жұмыс уақыты", value: contacts.workingHours },
     ...(contacts.whatsappUrl
       ? [{ icon: "whatsapp" as const, label: "WhatsApp", value: "Хабарласу", href: contacts.whatsappUrl }]
