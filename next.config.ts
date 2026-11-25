@@ -4,12 +4,12 @@ import type { NextConfig } from "next";
  * Префикс пути сайта.
  * - GitHub Pages (https://cpio1.github.io/dana-landing/) — "/dana-landing".
  * - Собственный домен (например, *.edu.kz) — пустая строка: задайте
- *   переменную NEXT_PUBLIC_BASE_PATH="" при сборке (в GitHub Actions это
+ *   переменную PAGES_BASE_PATH="" при сборке (в GitHub Actions это
  *   делается автоматически, если указана repository variable CUSTOM_DOMAIN).
  * - `npm run dev` — без префикса, сайт открывается на http://localhost:3000/.
  */
 const isProd = process.env.NODE_ENV === "production";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (isProd ? "/dana-landing" : "");
+const basePath = process.env.PAGES_BASE_PATH ?? (isProd ? "/dana-landing" : "");
 
 const nextConfig: NextConfig = {
   // Полностью статический сайт: `next build` кладёт готовые файлы в `out/`.
