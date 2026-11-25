@@ -18,9 +18,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Собственный домен (например, dana.edu.kz): Settings → Secrets and variables →
-      # Actions → Variables → CUSTOM_DOMAIN. Если задан — сайт собирается без
-      # префикса /dana-landing и в out/ добавляется файл CNAME.
+      # Необязательное ручное переопределение домена: Settings → Secrets and
+      # variables → Actions → Variables → CUSTOM_DOMAIN. Обычно не нужно —
+      # домен определяется автоматически из Settings → Pages → Custom domain.
       CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
     steps:
       - name: Checkout
@@ -32,23 +32,56 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Читает настройки GitHub Pages: для собственного домена (dana2009.edu.kz)
+      # base_path = "", для https://cpio1.github.io/dana-landing/ — "/dana-landing".
+      - name: Detect Pages settings
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Install dependencies
         run: npm ci
 
       - name: Configure base path
+        env:
+          DETECTED_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          DETECTED_HOST: ${{ steps.pages.outputs.host }}
         run: |
           if [ -n "$CUSTOM_DOMAIN" ]; then
-            echo "PAGES_BASE_PATH=" >> "$GITHUB_ENV"
+            BASE_PATH=""
+            DOMAIN="$CUSTOM_DOMAIN"
           else
-            echo "PAGES_BASE_PATH=/dana-landing" >> "$GITHUB_ENV"
+            BASE_PATH="$DETECTED_BASE_PATH"
+            case "$DETECTED_HOST" in
+              *.github.io) DOMAIN="" ;;
+              *) DOMAIN="$DETECTED_HOST" ;;
+            esac
           fi
+          echo "PAGES_BASE_PATH=$BASE_PATH" >> "$GITHUB_ENV"
+          echo "SITE_DOMAIN=$DOMAIN" >> "$GITHUB_ENV"
+          echo "Host: ${DOMAIN:-$DETECTED_HOST}, base path: '${BASE_PATH}'"
 
+      # next/font/google скачивает шрифты во время сборки; при временном сбое
+      # сети Turbopack падает с ошибкой шрифта — повторяем до трёх раз.
       - name: Build
-        run: npm run build
+        run: |
+          for attempt in 1 2 3; do
+            npm run build && exit 0
+            echo "::warning::Build attempt $attempt failed, retrying..."
+            rm -rf .next out
+            sleep 10
+          done
+          exit 1
+
+      - name: Verify asset paths
+        run: |
+          if [ -z "$PAGES_BASE_PATH" ] && grep -q '/dana-landing/_next/' out/index.html; then
+            echo "::error::Build still uses the /dana-landing prefix"; exit 1
+          fi
+          grep -o '/_next/static/[^"]*\.css' out/index.html | head -1
 
       - name: Add CNAME for custom domain
-        if: env.CUSTOM_DOMAIN != ''
-        run: echo "$CUSTOM_DOMAIN" > out/CNAME
+        if: env.SITE_DOMAIN != ''
+        run: echo "$SITE_DOMAIN" > out/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

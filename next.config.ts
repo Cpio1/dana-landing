@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 /**
  * Префикс пути сайта.
  * - GitHub Pages (https://cpio1.github.io/dana-landing/) — "/dana-landing".
- * - Собственный домен (например, *.edu.kz) — пустая строка: задайте
- *   переменную PAGES_BASE_PATH="" при сборке (в GitHub Actions это
- *   делается автоматически, если указана repository variable CUSTOM_DOMAIN).
+ * - Собственный домен (https://dana2009.edu.kz/) — пустая строка. В GitHub
+ *   Actions PAGES_BASE_PATH определяется автоматически по настройкам Pages
+ *   (Settings → Pages → Custom domain); вручную: PAGES_BASE_PATH="" npm run build.
  * - `npm run dev` — без префикса, сайт открывается на http://localhost:3000/.
  */
 const isProd = process.env.NODE_ENV === "production";
