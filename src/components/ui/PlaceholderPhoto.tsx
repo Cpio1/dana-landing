@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ImageAsset } from "@/types/content";
 import { Icon } from "@/components/ui/Icon";
+import { assetPath } from "@/lib/asset-path";
 
 interface PlaceholderPhotoProps {
   image: ImageAsset;
@@ -50,7 +51,7 @@ export function PlaceholderPhoto({
       {image.src ? (
         isNaturalSize ? (
           <Image
-            src={image.src}
+            src={assetPath(image.src)}
             alt={image.alt}
             width={width}
             height={height}
@@ -68,7 +69,7 @@ export function PlaceholderPhoto({
               // Размытый фон без CSS blur: крошечная версия фото, растянутая браузером,
               // сама выглядит мягкой, но не нагружает прокрутку как filter: blur.
               <Image
-                src={image.src}
+                src={assetPath(image.src)}
                 alt=""
                 aria-hidden="true"
                 fill
@@ -79,7 +80,7 @@ export function PlaceholderPhoto({
               />
             )}
             <Image
-              src={image.src}
+              src={assetPath(image.src)}
               alt={image.alt}
               fill
               sizes={sizes}

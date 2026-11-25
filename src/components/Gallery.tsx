@@ -10,6 +10,7 @@ import { PlaceholderPhoto } from "@/components/ui/PlaceholderPhoto";
 import { Icon } from "@/components/ui/Icon";
 import { Button } from "@/components/ui/Button";
 import type { ImageAsset } from "@/types/content";
+import { assetPath } from "@/lib/asset-path";
 
 /** Бастапқыда көрсетілетін фотолар саны. */
 const INITIAL_COUNT = 6;
@@ -27,7 +28,7 @@ function preloadLightboxImage(image: ImageAsset) {
   // Для вертикальных фото есть ещё крошечный фон (sizes="32px") — он тоже нужен сразу.
   if (image.fit === "contain") variants.push({ sizes: "32px" });
   for (const { sizes } of variants) {
-    const { props } = getImageProps({ src: image.src, alt: "", fill: true, sizes });
+    const { props } = getImageProps({ src: assetPath(image.src), alt: "", fill: true, sizes });
     const img = new window.Image();
     img.sizes = props.sizes ?? sizes;
     if (props.srcSet) img.srcset = props.srcSet;
